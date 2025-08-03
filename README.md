@@ -644,3 +644,197 @@ If the paths are still absolute (`/assets/...`), let's also check what's actuall
 The fact that your browser is trying to load `/src/main.ts` suggests that either:
 - The source files are being deployed instead of the dist folder
 - Or the deployment isn't happening at all and you're seeing an old version
+
+
+
+
+Got this error when deployed again 
+
+Run yarn lint
+yarn run v1.22.22
+$ eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+
+/home/runner/work/multiplicationdrill.github.io/multiplicationdrill.github.io/src/main.ts
+ESLint found too many warnings (maximum: 0).
+Warning:   5:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+Warning:   6:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+Warning:   7:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+Warning:   8:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+Warning:   9:12  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 5 problems (0 errors, 5 warnings)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+Error: Process completed with exit code 1.
+
+Local looks ok 
+```powershell
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss";yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 05:55:08
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .github/workflows/ci-cd.yml
+        modified:   README.md
+        modified:   vite.config.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        vitest.config.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+2025-08-03 05:55:09
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+2025-08-03 05:55:09
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.45s.
+2025-08-03 05:55:10
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-MGc7fvWS.js   7.47 kB │ gzip: 2.48 kB │ map: 25.34 kB
+✓ built in 444ms
+Done in 4.36s.
+2025-08-03 05:55:15
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/utils.test.ts (10)
+ ✓ src/__tests__/state.test.ts (9)
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  05:55:17
+   Duration  3.10s (transform 292ms, setup 2ms, collect 562ms, tests 103ms, environment 5.72s, prepare 1.14s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 11.37s.
+2025-08-03 05:55:27
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+```
+// index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactive Math Quiz</title>
+  <script type="module" crossorigin src="./assets/main-MGc7fvWS.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-DP3U4Tpo.css">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <div class="container">
+        <h1>Reactive Math Quiz</h1>
+        
+        <div class="section">
+            <div class="quiz-display" id="display">Press Start Quiz</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="timer-display" id="timerDisplay">Ready</div>
+        </div>
+
+        <div class="section">
+            <h3 style="margin-bottom: 15px;">Quiz Settings</h3>
+            <div class="controls">
+                <div class="slider-group">
+                    <label>Question Time:</label>
+                    <input type="range" id="questionTime" min="1" max="30" value="5">
+                    <span class="slider-value" id="questionTimeValue">5s</span>
+                </div>
+                <div class="slider-group">
+                    <label>Answer Time:</label>
+                    <input type="range" id="answerTime" min="1" max="30" value="3">
+                    <span class="slider-value" id="answerTimeValue">3s</span>
+                </div>
+                <div class="slider-group">
+                    <label>Difficulty:</label>
+                    <input type="range" id="difficulty" min="1" max="4" step="1" value="3">
+                    <span class="slider-value" id="difficultyValue">Medium</span>
+                </div>
+                <button id="quizButton" onclick="toggleQuiz()">Start Quiz</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 style="margin-bottom: 15px;">Manual Mode</h3>
+            <div class="button-group">
+                <button id="incrementBtn" onclick="increment()">Increment</button>
+                <button id="resetBtn" onclick="reset()">Reset</button>
+            </div>
+            <div class="toggle" style="margin-top: 15px;">
+                <input type="checkbox" id="autoUpdate" onchange="toggleAutoUpdate(this.checked)">
+                <label for="autoUpdate">Auto-update (3s intervals)</label>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="status-item">
+                <span>Mode:</span>
+                <span class="status-value" id="modeStatus">Manual</span>
+            </div>
+            <div class="status-item">
+                <span>Quiz State:</span>
+                <span class="status-value" id="quizStatus">Stopped</span>
+            </div>
+            <div class="status-item">
+                <span>Last Update:</span>
+                <span class="status-value" id="updateTime">Never</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+```
+
+
+
+
+
+
+Great! The build is now working correctly with relative paths (`./assets/...`). Now we need to fix the ESLint warnings that are causing the CI to fail. Let's update the main.ts file to avoid using `any`:Now commit and push your changes:
+
+```bash
+git add .
+git commit -m "Fix TypeScript and build configuration"
+git push
+```
+
+This should:
+1. Fix the ESLint warnings by properly typing the window object instead of using `any`
+2. The build is already producing correct relative paths
+3. Once the lint passes, the deployment should work correctly
+
+The key issue was that ESLint was configured with `--max-warnings 0`, meaning any warnings would cause the build to fail. Now with proper TypeScript declarations, there should be no warnings.
+
+
+
+
+
+
