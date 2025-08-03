@@ -4792,3 +4792,281 @@ All files   |   97.64 |    94.82 |   95.45 |   97.64 |
 Done in 5.86s.
 2025-08-03 08:06:26
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+
+How can I add playwright so it runs inside GitHub Actions? 
+
+Great idea! Let's add Playwright for end-to-end testing. This will help test the DOM manipulation code in `app.ts` and improve overall coverage.
+
+## Step 1: Install Playwright
+
+```bash
+yarn add -D @playwright/test
+```
+
+## Step 2: Create Playwright Config## Step 3: Create E2E Tests## Step 4: Update package.json## Step 5: Update GitHub Actions## Step 6: Add .gitignore entries## Step 7: Create E2E tests directory
+
+```bash
+mkdir e2e
+```
+
+## Installation and Running
+
+Now install Playwright:
+
+```bash
+# Install Playwright
+yarn add -D @playwright/test
+
+# Install browsers (only needed once)
+npx playwright install
+```
+
+## Running Tests Locally
+
+```bash
+# Run E2E tests
+yarn test:e2e
+
+# Run E2E tests with UI (great for debugging)
+yarn test:e2e:ui
+
+# Run all tests (unit + E2E)
+yarn test:all
+
+# View E2E test report
+yarn test:e2e:report
+```
+
+## What This Gives You
+
+1. **Full Application Testing**: Tests the actual DOM interactions that `app.ts` handles
+2. **Cross-browser Testing**: Tests on Chromium, Firefox, and WebKit
+3. **CI Integration**: Runs automatically in GitHub Actions
+4. **Visual Debugging**: Screenshots on failure, trace files for debugging
+5. **Parallel Execution**: Tests run in parallel locally, sequentially in CI
+6. **Auto-retry**: Retries failed tests in CI
+
+## Coverage Improvement
+
+While Playwright doesn't directly contribute to code coverage metrics, it ensures your DOM manipulation code actually works. You could combine both:
+
+1. Unit tests (Vitest) - for business logic coverage
+2. E2E tests (Playwright) - for integration testing
+
+The E2E tests I created cover:
+- ✅ Initial state and display
+- ✅ Manual mode increment/reset
+- ✅ Difficulty changes affecting seed
+- ✅ Quiz mode flow
+- ✅ Theme toggling
+- ✅ Settings persistence
+- ✅ Auto-update functionality
+
+This ensures your application works end-to-end, even if the DOM manipulation code in `app.ts` isn't directly covered by unit tests!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tests pass most of the time but I got it to fail with test:all  
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> yarn add -D @playwright/test
+yarn add v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 3 new dependencies.
+info Direct dependencies
+└─ @playwright/test@1.54.2
+info All dependencies
+├─ @playwright/test@1.54.2
+├─ playwright-core@1.54.2
+└─ playwright@1.54.2
+Done in 11.49s.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> yarn add -D @playwright/test
+yarn add v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved 1 new dependency.
+info Direct dependencies
+└─ @playwright/test@1.54.2
+info All dependencies
+└─ @playwright/test@1.54.2
+Done in 4.70s.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; npx playwright install; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:05:46
+Downloading Chromium 139.0.7258.5 (playwright build v1181) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1181/chromium-win64.zip
+146.9 MiB [====================] 100% 0.0s
+Chromium 139.0.7258.5 (playwright build v1181) downloaded to C:\Users\kushal\AppData\Local\ms-playwright\chromium-1181
+Downloading Chromium Headless Shell 139.0.7258.5 (playwright build v1181) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1181/chromium-headless-shell-win64.zip
+90.4 MiB [====================] 100% 0.0s
+Chromium Headless Shell 139.0.7258.5 (playwright build v1181) downloaded to C:\Users\kushal\AppData\Local\ms-playwright\chromium_headless_shell-1181
+Downloading Firefox 140.0.2 (playwright build v1489) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1489/firefox-win64.zip
+93.5 MiB [====================] 100% 0.0s
+Firefox 140.0.2 (playwright build v1489) downloaded to C:\Users\kushal\AppData\Local\ms-playwright\firefox-1489
+Downloading Webkit 26.0 (playwright build v2191) from https://cdn.playwright.dev/dbazure/download/playwright/builds/webkit/2191/webkit-win64.zip
+56.9 MiB [====================] 100% 0.0s
+Webkit 26.0 (playwright build v2191) downloaded to C:\Users\kushal\AppData\Local\ms-playwright\webkit-2191
+Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-win64.zip
+1.3 MiB [====================] 100% 0.0s
+FFMPEG playwright build v1011 downloaded to C:\Users\kushal\AppData\Local\ms-playwright\ffmpeg-1011
+Downloading Winldd playwright build v1007 from https://cdn.playwright.dev/dbazure/download/playwright/builds/winldd/1007/winldd-win64.zip
+0.1 MiB [====================] 100% 0.0s
+Winldd playwright build v1007 downloaded to C:\Users\kushal\AppData\Local\ms-playwright\winldd-1007
+2025-08-03 09:07:08
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:e2e; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:08:14
+yarn run v1.22.22
+$ playwright test
+
+Running 24 tests using 5 workers
+  24 passed (58.7s)
+
+To open last HTML report run:
+
+  yarn playwright show-report
+
+Done in 62.11s.
+2025-08-03 09:09:17
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:e2e:ui; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:09:30
+yarn run v1.22.22
+$ playwright test --ui
+Done in 48.58s.
+2025-08-03 09:10:19
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:10:32
+yarn run v1.22.22
+$ yarn test:coverage && yarn test:e2e
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/state.test.ts (9 tests) 18ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 25ms
+ ✓ src/__tests__/utils.test.ts (11 tests) 63ms
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  e2e/quiz.spec.ts [ e2e/quiz.spec.ts ]
+Error: Playwright Test did not expect test.describe() to be called here.
+Most common reasons include:
+- You are calling test.describe() in a configuration file.
+- You are calling test.describe() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+ ❯ TestTypeImpl._currentSuite node_modules/playwright/lib/common/testType.js:74:13
+ ❯ TestTypeImpl._describe node_modules/playwright/lib/common/testType.js:114:24
+ ❯ Function.describe node_modules/playwright/lib/transform/transform.js:275:12
+ ❯ e2e/quiz.spec.ts:3:6
+      1| import { test, expect } from '@playwright/test';
+      2|
+      3| test.describe('Multiplication Drill', () => {
+       |      ^
+      4|   test.beforeEach(async ({ page }) => {
+      5|     await page.goto('/');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  29 passed (29)
+   Start at  09:10:35
+   Duration  26.96s (transform 644ms, setup 0ms, collect 950ms, tests 106ms, environment 77.91s, prepare 3.14s)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+2025-08-03 09:11:05
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:e2e:report; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:11:49
+yarn run v1.22.22
+$ playwright show-report
+
+  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 09:14:19
+yarn run v1.22.22
+$ yarn test:coverage && yarn test:e2e
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/state.test.ts (9 tests) 19ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 33ms
+ ✓ src/__tests__/utils.test.ts (11 tests) 56ms
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  e2e/quiz.spec.ts [ e2e/quiz.spec.ts ]
+Error: Playwright Test did not expect test.describe() to be called here.
+Most common reasons include:
+- You are calling test.describe() in a configuration file.
+- You are calling test.describe() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.
+ ❯ TestTypeImpl._currentSuite node_modules/playwright/lib/common/testType.js:74:13
+ ❯ TestTypeImpl._describe node_modules/playwright/lib/common/testType.js:114:24
+ ❯ Function.describe node_modules/playwright/lib/transform/transform.js:275:12
+ ❯ e2e/quiz.spec.ts:3:6
+      1| import { test, expect } from '@playwright/test';
+      2|
+      3| test.describe('Multiplication Drill', () => {
+       |      ^
+      4|   test.beforeEach(async ({ page }) => {
+      5|     await page.goto('/');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  29 passed (29)
+   Start at  09:14:22
+   Duration  8.95s (transform 371ms, setup 0ms, collect 585ms, tests 109ms, environment 8.57s, prepare 1.97s)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+2025-08-03 09:14:31
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
