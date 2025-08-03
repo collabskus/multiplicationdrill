@@ -32,7 +32,7 @@ jobs:
       run: yarn type-check
 
     - name: Run tests
-      run: yarn test:coverage
+      run: yarn test:coverage:ci
 
     - name: Upload coverage reports
       uses: codecov/codecov-action@v4
