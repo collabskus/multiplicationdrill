@@ -838,3 +838,56 @@ The key issue was that ESLint was configured with `--max-warnings 0`, meaning an
 
 
 
+Deploy to github pages failed 
+```
+Run peaceiris/actions-gh-pages@v3
+  with:
+    github_token: ***
+    publish_dir: ./dist
+    publish_branch: gh-pages
+    allow_empty_commit: false
+    keep_files: false
+    force_orphan: false
+    enable_jekyll: false
+    disable_nojekyll: false
+    exclude_assets: .github
+[INFO] Usage https://github.com/peaceiris/actions-gh-pages#readme
+Dump inputs
+Setup auth token
+Prepare publishing assets
+Setup Git config
+Create a commit
+Push the commit or tag
+  /usr/bin/git push origin gh-pages
+  remote: Permission to multiplicationdrill/multiplicationdrill.github.io.git denied to github-actions[bot].
+  fatal: unable to access 'https://github.com/multiplicationdrill/multiplicationdrill.github.io.git/': The requested URL returned error: 403
+  Error: Action failed with "The process '/usr/bin/git' failed with exit code 128"
+```
+
+
+
+
+
+The issue is that the GitHub Actions bot doesn't have permission to push to your repository. This is a common issue with GitHub Pages deployment. Let's fix it:
+
+## Option 1: Enable GitHub Actions permissions (Recommended)
+
+1. Go to your repository on GitHub
+2. Click on **Settings** → **Actions** → **General**
+3. Scroll down to **Workflow permissions**
+4. Select **Read and write permissions**
+5. Check **Allow GitHub Actions to create and approve pull requests**
+6. Click **Save**
+
+## Option 2: Use the built-in GitHub Pages action
+
+Alternatively, we can modify the workflow to use GitHub's built-in Pages deployment:## Option 3: Configure GitHub Pages to use Actions
+
+If you choose Option 2 (the updated workflow), you'll also need to:
+
+1. Go to your repository **Settings** → **Pages**
+2. Under **Build and deployment**, change **Source** from "Deploy from a branch" to **GitHub Actions**
+
+This uses GitHub's native Pages deployment which has better permission handling.
+
+Choose either Option 1 (easier) or Option 2+3 (more modern approach). Both will fix the permission issue.
