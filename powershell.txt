@@ -3591,3 +3591,90 @@ error Command failed with exit code 1.
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 2025-08-03 07:37:08
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+
+
+I see the problem you mentioned earlier now. 
+Code coverage being low makes it look like our tests have failed but tests have all passed. 
+$ vitest run --coverage && echo 'Opening coverage report...' && start coverage/index.html
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/state.test.ts (9 tests) 22ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 21ms
+ ✓ src/__tests__/utils.test.ts (11 tests) 59ms
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  07:37:04
+   Duration  3.97s (transform 425ms, setup 0ms, collect 740ms, tests 102ms, environment 6.04s, prepare 1.48s)
+
+ % Coverage report from v8
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |   39.15 |    90.32 |   84.61 |   39.15 |
+ multiplicationdrill         |       0 |        0 |       0 |       0 |
+  .eslintrc.cjs              |       0 |        0 |       0 |       0 | 1-14
+ multiplicationdrill/scripts |       0 |        0 |       0 |       0 |
+  coverage-report.js         |       0 |        0 |       0 |       0 | 1-57
+ multiplicationdrill/src     |   46.03 |    93.33 |   91.66 |   46.03 |
+  app.ts                     |       0 |        0 |       0 |       0 | 1-289
+  main.ts                    |     100 |      100 |     100 |     100 |
+  signals.ts                 |    97.1 |      100 |   91.66 |    97.1 | 30-31
+  state.ts                   |     100 |      100 |     100 |     100 |
+  types.ts                   |       0 |        0 |       0 |       0 |
+  utils.ts                   |   96.42 |       88 |     100 |   96.42 | 57-58
+  vite-env.d.ts              |       0 |        0 |       0 |       0 |
+-----------------------------|---------|----------|---------|---------|-------------------
+ERROR: Coverage for lines (39.15%) does not meet global threshold (80%)
+ERROR: Coverage for statements (39.15%) does not meet global threshold (80%)
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+2025-08-03 07:37:08
+
+however, github actions shows a red x now 
+Run yarn test:coverage
+yarn run v1.22.22
+$ vitest --coverage
+
+ RUN  v3.2.4 /home/runner/work/multiplicationdrill.github.io/multiplicationdrill.github.io
+      Coverage enabled with v8
+
+ ✓ src/__tests__/utils.test.ts (11 tests) 16ms
+ ✓ src/__tests__/state.test.ts (9 tests) 7ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 10ms
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  14:38:43
+   Duration  1.38s (transform 110ms, setup 0ms, collect 180ms, tests 33ms, environment 1.82s, prepare 814ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   36.64 |    90.32 |   84.61 |   36.64 |                   
+ ...rill.github.io |       0 |        0 |       0 |       0 |                   
+  .eslintrc.cjs    |       0 |        0 |       0 |       0 | 1-14              
+ ...hub.io/scripts |       0 |        0 |       0 |       0 |                   
+  ...age-report.js |       0 |        0 |       0 |       0 | 1-57              
+ ....github.io/src |   43.22 |    93.33 |   91.66 |   43.22 |                   
+  app.ts           |       0 |        0 |       0 |       0 | 1-289             
+  signals.ts       |    97.1 |      100 |   91.66 |    97.1 | 30-31             
+  state.ts         |     100 |      100 |     100 |     100 |                   
+  types.ts         |       0 |        0 |       0 |       0 |                   
+  utils.ts         |   96.42 |       88 |     100 |   96.42 | 57-58             
+  vite-env.d.ts    |       0 |        0 |       0 |       0 |                   
+-------------------|---------|----------|---------|---------|-------------------
+ERROR: Coverage for lines (36.64%) does not meet global threshold (80%)
+ERROR: Coverage for statements (36.64%) does not meet global threshold (80%)
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+Error: Process completed with exit code 1.
+
