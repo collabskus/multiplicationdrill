@@ -2407,3 +2407,80 @@ eslint                           8.57.1  8.57.1 9.32.0 devDependencies https://e
 Done in 3.23s.
 2025-08-03 07:21:37
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+
+
+
+
+
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss";yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 07:22:52
+On branch master
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+2025-08-03 07:22:52
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (fast-forwardable)
+2025-08-03 07:22:53
+yarn install v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+Done in 10.72s.
+2025-08-03 07:23:04
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-CIN9tpaW.js   7.57 kB │ gzip: 2.50 kB │ map: 26.33 kB
+✓ built in 559ms
+Done in 7.95s.
+2025-08-03 07:23:13
+yarn run v1.22.22
+$ vitest
+
+ DEV  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 26ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (11 tests) 62ms
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  07:23:15
+   Duration  17.83s (transform 473ms, setup 0ms, collect 791ms, tests 103ms, environment 49.27s, prepare 1.39s)
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 25.30s.
+2025-08-03 07:23:38
+yarn outdated v1.22.22
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+Package                          Current Wanted Latest Package Type    URL
+@typescript-eslint/eslint-plugin 6.21.0  6.21.0 8.38.0 devDependencies https://typescript-eslint.io/packages/eslint-plugin
+@typescript-eslint/parser        6.21.0  6.21.0 8.38.0 devDependencies https://typescript-eslint.io/packages/parser
+eslint                           8.57.1  8.57.1 9.32.0 devDependencies https://eslint.org
+Done in 3.16s.
+2025-08-03 07:23:42
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
