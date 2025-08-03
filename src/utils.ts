@@ -33,6 +33,11 @@ export function generateProblem(difficulty: DifficultyLevel): Problem {
   };
 }
 
+export function generateSeed(difficulty: DifficultyLevel): number {
+  const range = getDifficultyRange(difficulty);
+  return randomInRange(range.min, range.max);
+}
+
 export function loadSettings(): Settings | null {
   try {
     const saved = localStorage.getItem('mathQuizSettings');

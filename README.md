@@ -891,3 +891,121 @@ If you choose Option 2 (the updated workflow), you'll also need to:
 This uses GitHub's native Pages deployment which has better permission handling.
 
 Choose either Option 1 (easier) or Option 2+3 (more modern approach). Both will fix the permission issue.
+
+
+
+
+
+
+
+I chose option 2 + 3. 
+Now that deployment is successful, 
+I want to make a change in the code as an exercise. 
+The `increment` button in manual mode not always multiply by 10. 
+This original `seed` should be random 
+within the limits of the difficulty level
+so when the page loads, it should not always say 0 x 10 = 0 
+it should pick some random number like 0 x 19 (if the user picked expert)
+
+
+Great idea! Let's update the code to use a random seed based on the difficulty level. We'll need to modify a few files:Now we need to import `generateSeed` in app.ts:Now let's add an effect to update the seed when difficulty changes:Let's also update the tests to reflect this change:Let's add a test for the new generateSeed function:Now let's also initialize the seed based on saved difficulty when loading settings:Perfect! Now the changes are complete. Here's what we've done:
+
+1. **Modified the seed generation**: Instead of a random number from 1-99, it now uses the same range as the difficulty level
+2. **Updated the display**: Changed from `${count} × 10` to `${count} × ${seed}`
+3. **Added `generateSeed` function**: Reuses the difficulty ranges to generate appropriate seeds
+4. **Made seed reactive to difficulty**: When the difficulty slider changes in manual mode, the seed updates
+5. **Updated reset function**: Uses the new seed generation based on difficulty
+6. **Added tests**: For the new generateSeed function
+7. **Fixed initialization**: Seed is set based on loaded difficulty settings
+
+Now when the page loads:
+- Easy mode (2-5): might show `0 × 3 = 0`
+- Medium mode (4-8): might show `0 × 6 = 0`
+- Hard mode (6-12): might show `0 × 9 = 0`
+- Expert mode (10-20): might show `0 × 17 = 0`
+
+The seed will also change whenever:
+- The difficulty is changed (in manual mode)
+- The reset button is clicked
+
+Test it locally:
+```bash
+yarn test
+yarn build
+yarn preview
+```
+
+Then commit and push to see it deployed!
+
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss";yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn dev
+2025-08-03 06:20:36
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+        modified:   src/__tests__/state.test.ts
+        modified:   src/__tests__/utils.test.ts
+        modified:   src/app.ts
+        modified:   src/state.ts
+        modified:   src/utils.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+2025-08-03 06:20:36
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+2025-08-03 06:20:37
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.48s.
+2025-08-03 06:20:38
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-CIN9tpaW.js   7.57 kB │ gzip: 2.50 kB │ map: 26.33 kB
+✓ built in 469ms
+Done in 4.49s.
+2025-08-03 06:20:43
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/utils.test.ts (11)
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/state.test.ts (9)
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  06:20:44
+   Duration  3.05s (transform 294ms, setup 1ms, collect 510ms, tests 85ms, environment 5.54s, prepare 1.18s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 9.57s.
+2025-08-03 06:20:53
+yarn run v1.22.22
+$ vite
+
+  VITE v7.0.6  ready in 557 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>

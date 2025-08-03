@@ -1,10 +1,11 @@
 import { Signal, ComputedSignal } from './signals';
 import { Problem, QuizPhase, DifficultyLevel } from './types';
+import { generateSeed } from './utils';
 
 // Application State
 export const state = {
   counter: new Signal(0),
-  seed: new Signal(Math.floor(Math.random() * 99) + 1),
+  seed: new Signal(generateSeed(3)), // Initialize with default difficulty
   questionTime: new Signal(5),
   answerTime: new Signal(3),
   difficulty: new Signal<DifficultyLevel>(3),
@@ -28,7 +29,8 @@ export const displayText = new ComputedSignal(() => {
   }
   // Manual mode display
   const count = state.counter.get();
-  return `${count} × 10 = ${count * 10}`;
+  const seed = state.seed.get();
+  return `${count} × ${seed} = ${count * seed}`;
 });
 
 export const progressPercent = new ComputedSignal(() => {

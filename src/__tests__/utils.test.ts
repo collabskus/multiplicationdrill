@@ -4,6 +4,7 @@ import {
   getDifficultyName, 
   randomInRange, 
   generateProblem,
+  generateSeed,
   loadSettings,
   saveSettings,
   loadTheme,
@@ -77,6 +78,24 @@ describe('generateProblem', () => {
       expect(problem.a).toBeLessThanOrEqual(20);
       expect(problem.b).toBeGreaterThanOrEqual(10);
       expect(problem.b).toBeLessThanOrEqual(20);
+    }
+  });
+});
+
+describe('generateSeed', () => {
+  it('should generate seed within difficulty range', () => {
+    // Test Easy difficulty
+    for (let i = 0; i < 20; i++) {
+      const seed = generateSeed(1);
+      expect(seed).toBeGreaterThanOrEqual(2);
+      expect(seed).toBeLessThanOrEqual(5);
+    }
+
+    // Test Expert difficulty
+    for (let i = 0; i < 20; i++) {
+      const seed = generateSeed(4);
+      expect(seed).toBeGreaterThanOrEqual(10);
+      expect(seed).toBeLessThanOrEqual(20);
     }
   });
 });

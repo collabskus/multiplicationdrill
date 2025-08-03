@@ -7,7 +7,8 @@ import {
   loadSettings, 
   saveSettings,
   loadTheme,
-  saveTheme
+  saveTheme,
+  generateSeed
 } from './utils';
 
 // DOM Elements
@@ -120,7 +121,7 @@ export function increment(): void {
 
 export function reset(): void {
   state.counter.set(0);
-  state.seed.set(Math.floor(Math.random() * 99) + 1);
+  state.seed.set(generateSeed(state.difficulty.get()));
   updateLastTime();
 }
 
@@ -166,6 +167,8 @@ function initializeSettings(): void {
     state.answerTime.set(answerTime);
     state.difficulty.set(difficulty);
     state.autoUpdateEnabled.set(autoUpdate);
+    // Set seed based on loaded difficulty
+    state.seed.set(generateSeed(difficulty));
     
     // Sync the DOM elements with loaded values
     elements.questionTimeSlider.value = questionTime.toString();
@@ -241,6 +244,10 @@ function setupEffects(): void {
   
   effect(() => { 
     elements.difficultyValue.textContent = getDifficultyName(state.difficulty.get()); 
+    // Update seed when difficulty changes in manual mode
+    if (!state.isQuizActive.get()) {
+      state.seed.set(generateSeed(state.difficulty.get()));
+    }
     saveSettingsToStorage();
   });
   

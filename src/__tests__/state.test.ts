@@ -16,7 +16,11 @@ describe('State', () => {
   describe('displayText computed signal', () => {
     it('should show manual mode display when quiz is inactive', () => {
       state.counter.set(5);
+      state.seed.set(10);
       expect(displayText.get()).toBe('5 × 10 = 50');
+      
+      state.seed.set(7);
+      expect(displayText.get()).toBe('5 × 7 = 35');
     });
 
     it('should show question during quiz question phase', () => {
