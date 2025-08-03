@@ -27,7 +27,7 @@ A reactive math quiz application built with TypeScript and a custom signal-based
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 22+ and yarn
 
 ### Setup
 

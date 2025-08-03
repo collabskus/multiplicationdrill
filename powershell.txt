@@ -1624,3 +1624,17 @@ The application is automatically deployed to GitHub Pages when changes are pushe
 ## License
 
 This project is open source and available under the MIT License.
+
+
+
+
+I think you failed to change the readme to say node 22+ and yarn 
+also subsequently, the npm run is also outdated and should say yarn commands 
+also clearly the license should be AGPL and not default to MIT. 
+please fix these and any and all errors. 
+do NOT hallucinate 
+
+
+
+
+
