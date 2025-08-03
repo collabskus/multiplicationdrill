@@ -33,7 +33,7 @@ interface DOMElements {
 let elements: DOMElements;
 let animationFrameId: number | null = null;
 let lastTimestamp = 0;
-let autoUpdateTimer: number | null = null;
+let autoUpdateTimer: ReturnType<typeof setInterval> | null = null;
 
 function getElements(): DOMElements {
   return {

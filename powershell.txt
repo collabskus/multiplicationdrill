@@ -83,3 +83,38 @@ success Saved lockfile.
 Done in 50.36s.
 2025-08-03 05:11:10
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 05:13:18
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.46s.
+2025-08-03 05:13:19
+yarn run v1.22.22
+$ tsc && vite build
+src/app.ts:137:3 - error TS2322: Type 'Timeout' is not assignable to type 'number'.
+
+137   autoUpdateTimer = setInterval(() => {
+      ~~~~~~~~~~~~~~~
+
+
+Found 1 error in src/app.ts:137
+
+error Command failed with exit code 2.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+2025-08-03 05:13:25
+
+The error is due to TypeScript's strict typing for `setTimeout`/`setInterval` return types. In Node.js, these return a `Timeout` object, while in the browser they return a `number`. Let's fix this:Now the build should work. The `ReturnType<typeof setInterval>` type will automatically resolve to the correct type whether in Node.js or browser environment.
+
+Try running the build again:
+```bash
+yarn build
+```
+
+This should resolve the TypeScript error and allow the build to complete successfully.
+
