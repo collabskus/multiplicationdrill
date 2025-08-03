@@ -2484,3 +2484,128 @@ eslint                           8.57.1  8.57.1 9.32.0 devDependencies https://e
 Done in 3.16s.
 2025-08-03 07:23:42
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+updated typescript, types, and vitest stuff. looks good so far. why is the eslint update in red? 
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss";yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 07:22:52
+On branch master
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+2025-08-03 07:22:52
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (fast-forwardable)
+2025-08-03 07:22:53
+yarn install v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+Done in 10.72s.
+2025-08-03 07:23:04
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-CIN9tpaW.js   7.57 kB │ gzip: 2.50 kB │ map: 26.33 kB
+✓ built in 559ms
+Done in 7.95s.
+2025-08-03 07:23:13
+yarn run v1.22.22
+$ vitest
+
+ DEV  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 26ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (11 tests) 62ms
+
+ Test Files  3 passed (3)
+      Tests  29 passed (29)
+   Start at  07:23:15
+   Duration  17.83s (transform 473ms, setup 0ms, collect 791ms, tests 103ms, environment 49.27s, prepare 1.39s)
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 25.30s.
+2025-08-03 07:23:38
+yarn outdated v1.22.22
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+Package                          Current Wanted Latest Package Type    URL
+@typescript-eslint/eslint-plugin 6.21.0  6.21.0 8.38.0 devDependencies https://typescript-eslint.io/packages/eslint-plugin
+@typescript-eslint/parser        6.21.0  6.21.0 8.38.0 devDependencies https://typescript-eslint.io/packages/parser
+eslint                           8.57.1  8.57.1 9.32.0 devDependencies https://eslint.org
+Done in 3.16s.
+2025-08-03 07:23:42
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+The ESLint update shows in **red** because it's a **major version update** (8.x → 9.x), which means it contains **breaking changes** that could potentially break your build.
+
+Here's what the colors mean in `yarn outdated`:
+- 🟢 **Green**: Patch updates (bug fixes, safe to update)
+- 🟡 **Yellow**: Minor updates (new features, backward compatible)
+- 🔴 **Red**: Major updates (breaking changes, not backward compatible)
+
+## Why ESLint 9 is a major breaking change:
+
+1. **New configuration format**: ESLint 9 uses a new "flat config" format instead of `.eslintrc.js`
+2. **Dropped Node.js support**: Older Node versions are no longer supported
+3. **API changes**: Some rules and plugins need updates
+4. **Plugin compatibility**: Not all plugins support ESLint 9 yet
+
+## The @typescript-eslint packages are also red because:
+- They need to match major versions with ESLint
+- Version 8.x of @typescript-eslint is designed for ESLint 8.57+
+- They would need configuration updates
+
+## Should you update?
+
+Since everything is working well, I'd recommend **NOT** updating ESLint to v9 right now because:
+
+1. Your current setup (ESLint 8 + typescript-eslint 6) is stable
+2. ESLint 9 requires rewriting your configuration
+3. Some tools/editors might not fully support ESLint 9 yet
+
+If you really want to update the TypeScript-ESLint packages while staying on ESLint 8:
+
+```bash
+# This updates to latest v7 (for ESLint 8)
+yarn add -D @typescript-eslint/eslint-plugin@^7 @typescript-eslint/parser@^7
+```
+
+But honestly, with your tests passing and build working, I'd leave the linting stack as-is unless you need specific new features. The red color is yarn's way of warning you: "Hey, this update might break things!"
+
+
+
+
+
+good point, now that the high priority stuff has been taken care of, any thoughts if we can run something like codecov locally in github actions? 
