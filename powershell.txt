@@ -225,4 +225,186 @@ $ vitest
        press h to show help, press q to quit
 Done in 39.40s.
 2025-08-03 05:18:08
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn dev
+2025-08-03 05:19:04
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.50s.
+2025-08-03 05:19:04
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                 3.05 kB │ gzip: 0.87 kB
+dist/assets/index-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/index-DuqwcOGr.js   7.47 kB │ gzip: 2.48 kB │ map: 25.34 kB
+✓ built in 472ms
+Done in 4.40s.
+2025-08-03 05:19:09
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/utils.test.ts (10)
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/state.test.ts (9)
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  05:19:11
+   Duration  3.07s (transform 258ms, setup 2ms, collect 532ms, tests 72ms, environment 5.39s, prepare 1.19s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 25.31s.
+2025-08-03 05:19:35
+yarn run v1.22.22
+$ vite
+
+  VITE v7.0.6  ready in 575 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+q
+Done in 53.62s.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 05:47:22
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.46s.
+2025-08-03 05:47:23
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                 3.05 kB │ gzip: 0.87 kB
+dist/assets/index-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/index-DuqwcOGr.js   7.47 kB │ gzip: 2.48 kB │ map: 25.34 kB
+✓ built in 433ms
+Done in 4.24s.
+2025-08-03 05:47:28
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/state.test.ts (9)
+ ✓ src/__tests__/utils.test.ts (10)
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  05:47:30
+   Duration  3.06s (transform 448ms, setup 1ms, collect 647ms, tests 65ms, environment 5.39s, prepare 1.15s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 6.58s.
+2025-08-03 05:47:35
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 05:54:16
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.48s.
+2025-08-03 05:54:17
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-MGc7fvWS.js   7.47 kB │ gzip: 2.48 kB │ map: 25.34 kB
+✓ built in 466ms
+Done in 4.34s.
+2025-08-03 05:54:22
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/utils.test.ts (10)
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/state.test.ts (9)
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  05:54:24
+   Duration  3.06s (transform 260ms, setup 1ms, collect 497ms, tests 86ms, environment 5.50s, prepare 1.24s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 16.04s.
+2025-08-03 05:54:38
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\";  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss";yarn;  Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test; Get-Date -Format "yyyy-MM-dd HH:mm:ss";
+2025-08-03 05:55:08
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .github/workflows/ci-cd.yml
+        modified:   README.md
+        modified:   vite.config.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        vitest.config.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+2025-08-03 05:55:09
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (up to date)
+2025-08-03 05:55:09
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.45s.
+2025-08-03 05:55:10
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.0.6 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.05 kB │ gzip: 0.87 kB
+dist/assets/main-DP3U4Tpo.css  5.38 kB │ gzip: 1.62 kB
+dist/assets/main-MGc7fvWS.js   7.47 kB │ gzip: 2.48 kB │ map: 25.34 kB
+✓ built in 444ms
+Done in 4.36s.
+2025-08-03 05:55:15
+yarn run v1.22.22
+$ vitest
+
+ DEV  v1.6.1 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9)
+ ✓ src/__tests__/utils.test.ts (10)
+ ✓ src/__tests__/state.test.ts (9)
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  05:55:17
+   Duration  3.10s (transform 292ms, setup 2ms, collect 562ms, tests 103ms, environment 5.72s, prepare 1.14s)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+Done in 11.37s.
+2025-08-03 05:55:27
 PS C:\code\MyMultiplicationDrills\multiplicationdrill>
