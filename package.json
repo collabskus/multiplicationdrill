@@ -10,6 +10,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "coverage:check": "vitest run --coverage && node scripts/coverage-report.js",
+    "coverage:html": "vitest run --coverage && echo 'Opening coverage report...' && start coverage/index.html",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "type-check": "tsc --noEmit"
   },
