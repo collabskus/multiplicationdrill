@@ -1,13 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactive Math Quiz</title>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <div class="container">
+        <h1>Reactive Math Quiz</h1>
+        
+        <div class="section">
+            <div class="quiz-display" id="display">Press Start Quiz</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="timer-display" id="timerDisplay">Ready</div>
+        </div>
+
+        <div class="section">
+            <h3 style="margin-bottom: 15px;">Quiz Settings</h3>
+            <div class="controls">
+                <div class="slider-group">
+                    <label>Question Time:</label>
+                    <input type="range" id="questionTime" min="1" max="30" value="5">
+                    <span class="slider-value" id="questionTimeValue">5s</span>
+                </div>
+                <div class="slider-group">
+                    <label>Answer Time:</label>
+                    <input type="range" id="answerTime" min="1" max="30" value="3">
+                    <span class="slider-value" id="answerTimeValue">3s</span>
+                </div>
+                <div class="slider-group">
+                    <label>Difficulty:</label>
+                    <input type="range" id="difficulty" min="1" max="4" step="1" value="3">
+                    <span class="slider-value" id="difficultyValue">Medium</span>
+                </div>
+                <button id="quizButton" onclick="toggleQuiz()">Start Quiz</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 style="margin-bottom: 15px;">Manual Mode</h3>
+            <div class="button-group">
+                <button id="incrementBtn" onclick="increment()">Increment</button>
+                <button id="resetBtn" onclick="reset()">Reset</button>
+            </div>
+            <div class="toggle" style="margin-top: 15px;">
+                <input type="checkbox" id="autoUpdate" onchange="toggleAutoUpdate(this.checked)">
+                <label for="autoUpdate">Auto-update (3s intervals)</label>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="status-item">
+                <span>Mode:</span>
+                <span class="status-value" id="modeStatus">Manual</span>
+            </div>
+            <div class="status-item">
+                <span>Quiz State:</span>
+                <span class="status-value" id="quizStatus">Stopped</span>
+            </div>
+            <div class="status-item">
+                <span>Last Update:</span>
+                <span class="status-value" id="updateTime">Never</span>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
-  </body>
+</body>
 </html>
