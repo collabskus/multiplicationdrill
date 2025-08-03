@@ -2609,3 +2609,73 @@ But honestly, with your tests passing and build working, I'd leave the linting s
 
 
 good point, now that the high priority stuff has been taken care of, any thoughts if we can run something like codecov locally in github actions? 
+
+Yes! You can definitely run coverage analysis locally and see the same reports that Codecov would generate. Here's how:
+
+## Running Coverage Locally
+
+You already have the coverage script set up. Run:
+
+```bash
+yarn test:coverage
+```
+
+This will generate coverage reports in multiple formats. To view them:
+
+### 1. HTML Report (Visual)
+```bash
+# After running coverage, open the HTML report
+# On Windows PowerShell:
+Start-Process ./coverage/index.html
+
+# Or just navigate to the coverage folder and open index.html in your browser
+```
+
+### 2. Terminal Report
+The coverage summary is already shown in the terminal when you run `yarn test:coverage`
+
+### 3. Coverage Thresholds
+You can add coverage thresholds to ensure code quality:## Adding a Local Coverage Check Script
+
+Let's add a script to check coverage locally with a nice report:## GitHub Actions Coverage Comment
+
+You can also add a coverage comment to PRs. Create a new workflow:## Running Coverage Summary Locally
+
+You can also create a script to generate a coverage summary locally:Now update package.json to add the coverage report script:## Usage
+
+Now you have several ways to work with coverage locally:
+
+### 1. Basic coverage with terminal output:
+```bash
+yarn test:coverage
+```
+
+### 2. Coverage with HTML report (Windows):
+```bash
+yarn coverage:html
+```
+
+### 3. Coverage with custom summary:
+```bash
+yarn coverage:check
+```
+
+### 4. View coverage trends:
+The HTML report at `coverage/index.html` shows:
+- File-by-file coverage
+- Line-by-line coverage highlighting
+- Uncovered code blocks
+- Historical trends (if you keep old reports)
+
+### 5. PR Comments:
+The new workflow will automatically comment on PRs with coverage changes.
+
+## Current Coverage Status
+
+Run `yarn test:coverage` to see your current coverage. Based on your test files, you should have good coverage for:
+- ✅ Signals system
+- ✅ Utils functions  
+- ✅ State management
+- ⚠️ App.ts might have lower coverage (DOM manipulation is harder to test)
+
+This gives you the same insights as Codecov but running entirely locally!
