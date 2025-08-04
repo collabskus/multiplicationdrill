@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { 
   getDifficultyRange, 
   getDifficultyName, 
@@ -8,7 +8,8 @@ import {
   loadSettings,
   saveSettings,
   loadTheme,
-  saveTheme
+  saveTheme,
+  debounce
 } from '../utils';
 
 // Mock localStorage
@@ -148,5 +149,62 @@ describe('Theme persistence', () => {
 
   it('should default to dark theme', () => {
     expect(loadTheme()).toBe('dark');
+  });
+});
+
+describe('debounce', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('should debounce function calls', () => {
+    const fn = vi.fn();
+    const debounced = debounce(fn, 100);
+
+    // Call multiple times rapidly
+    debounced();
+    debounced();
+    debounced();
+
+    // Function shouldn't be called yet
+    expect(fn).not.toHaveBeenCalled();
+
+    // Fast forward time
+    vi.advanceTimersByTime(100);
+
+    // Function should be called once
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should pass arguments to debounced function', () => {
+    const fn = vi.fn();
+    const debounced = debounce(fn, 100);
+
+    debounced('arg1', 'arg2');
+    vi.advanceTimersByTime(100);
+
+    expect(fn).toHaveBeenCalledWith('arg1', 'arg2');
+  });
+
+  it('should cancel previous timeout on new call', () => {
+    const fn = vi.fn();
+    const debounced = debounce(fn, 100);
+
+    debounced();
+    vi.advanceTimersByTime(50);
+    debounced(); // This should cancel the first timeout
+    vi.advanceTimersByTime(50);
+    
+    // Function still shouldn't be called
+    expect(fn).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(50);
+    
+    // Now it should be called once
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 });

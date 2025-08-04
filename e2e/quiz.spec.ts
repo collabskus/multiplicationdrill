@@ -129,8 +129,8 @@ test.describe('Multiplication Drill', () => {
     await page.locator('#answerTime').fill('5');
     await page.locator('#difficulty').fill('4');
     
-    // Wait for settings to save
-    await page.waitForTimeout(100);
+    // Wait for debounced save (300ms debounce + buffer)
+    await page.waitForTimeout(400);
     
     // Reload page
     await page.reload();

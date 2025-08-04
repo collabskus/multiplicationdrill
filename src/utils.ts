@@ -45,7 +45,12 @@ export function loadSettings(): Settings | null {
       return JSON.parse(saved);
     }
   } catch (e) {
-    console.error('Failed to load settings:', e);
+    console.error('Failed to load settings - resetting to defaults', e);
+    try {
+      localStorage.removeItem('mathQuizSettings');
+    } catch {
+      // Ignore if we can't remove
+    }
   }
   return null;
 }
@@ -54,14 +59,36 @@ export function saveSettings(settings: Settings): void {
   try {
     localStorage.setItem('mathQuizSettings', JSON.stringify(settings));
   } catch (e) {
-    console.error('Failed to save settings:', e);
+    // Silently fail if localStorage is disabled (e.g., private mode)
+    console.warn('Failed to save settings:', e);
   }
 }
 
 export function loadTheme(): 'light' | 'dark' {
-  return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+  try {
+    return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+  } catch {
+    return 'dark';
+  }
 }
 
 export function saveTheme(theme: 'light' | 'dark'): void {
-  localStorage.setItem('theme', theme);
+  try {
+    localStorage.setItem('theme', theme);
+  } catch {
+    // Silently fail if localStorage is disabled
+  }
+}
+
+// Debounce utility
+export function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 }

@@ -211,6 +211,15 @@ h1 {
     background: var(--accent-secondary);
 }
 
+.slider-group input[type="range"]:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.slider-group input[type="range"]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
 .slider-value {
     min-width: 50px;
     text-align: center;

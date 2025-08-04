@@ -22,19 +22,26 @@
             <h3 style="margin-bottom: 15px;">Quiz Settings</h3>
             <div class="controls">
                 <div class="slider-group">
-                    <label>Question Time:</label>
-                    <input type="range" id="questionTime" min="1" max="30" value="5">
+                    <label for="questionTime">Question Time:</label>
+                    <input type="range" id="questionTime" min="1" max="30" value="5" 
+                           aria-label="Question time in seconds"
+                           aria-valuemin="1" aria-valuemax="30" aria-valuenow="5">
                     <span class="slider-value" id="questionTimeValue">5s</span>
                 </div>
                 <div class="slider-group">
-                    <label>Answer Time:</label>
-                    <input type="range" id="answerTime" min="1" max="30" value="3">
+                    <label for="answerTime">Answer Time:</label>
+                    <input type="range" id="answerTime" min="1" max="30" value="3"
+                           aria-label="Answer time in seconds"
+                           aria-valuemin="1" aria-valuemax="30" aria-valuenow="3">
                     <span class="slider-value" id="answerTimeValue">3s</span>
                 </div>
                 <div class="slider-group">
-                    <label>Difficulty:</label>
-                    <input type="range" id="difficulty" min="1" max="4" step="1" value="3">
-                    <span class="slider-value" id="difficultyValue">Medium</span>
+                    <label for="difficulty">Difficulty:</label>
+                    <input type="range" id="difficulty" min="1" max="4" step="1" value="3"
+                           aria-label="Difficulty level"
+                           aria-valuemin="1" aria-valuemax="4" aria-valuenow="3"
+                           aria-valuetext="Hard">
+                    <span class="slider-value" id="difficultyValue">Hard</span>
                 </div>
                 <button id="quizButton" onclick="toggleQuiz()">Start Quiz</button>
             </div>

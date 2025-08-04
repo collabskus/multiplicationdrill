@@ -8,7 +8,8 @@ import {
   saveSettings,
   loadTheme,
   saveTheme,
-  generateSeed
+  generateSeed,
+  debounce
 } from './utils';
 
 // DOM Elements
@@ -231,28 +232,41 @@ function setupEffects(): void {
     }
   });
 
-  // Settings persistence
+  // Create a debounced save function
+  const debouncedSave = debounce(saveSettingsToStorage, 300);
+
+  // Settings persistence with debounce
   effect(() => { 
-    elements.questionTimeValue.textContent = `${state.questionTime.get()}s`; 
-    saveSettingsToStorage();
+    const time = state.questionTime.get();
+    elements.questionTimeValue.textContent = `${time}s`;
+    elements.questionTimeSlider.setAttribute('aria-valuenow', time.toString());
+    elements.questionTimeSlider.setAttribute('aria-valuetext', `${time} seconds`);
+    debouncedSave();
   });
   
   effect(() => { 
-    elements.answerTimeValue.textContent = `${state.answerTime.get()}s`; 
-    saveSettingsToStorage();
+    const time = state.answerTime.get();
+    elements.answerTimeValue.textContent = `${time}s`;
+    elements.answerTimeSlider.setAttribute('aria-valuenow', time.toString());
+    elements.answerTimeSlider.setAttribute('aria-valuetext', `${time} seconds`);
+    debouncedSave();
   });
   
   effect(() => { 
-    elements.difficultyValue.textContent = getDifficultyName(state.difficulty.get()); 
+    const difficulty = state.difficulty.get();
+    const name = getDifficultyName(difficulty);
+    elements.difficultyValue.textContent = name;
+    elements.difficultySlider.setAttribute('aria-valuenow', difficulty.toString());
+    elements.difficultySlider.setAttribute('aria-valuetext', name);
     // Update seed when difficulty changes in manual mode
     if (!state.isQuizActive.get()) {
-      state.seed.set(generateSeed(state.difficulty.get()));
+      state.seed.set(generateSeed(difficulty));
     }
-    saveSettingsToStorage();
+    debouncedSave();
   });
   
   effect(() => { 
-    saveSettingsToStorage(); // For autoUpdate changes
+    debouncedSave(); // For autoUpdate changes
   });
 }
 
@@ -268,15 +282,29 @@ function saveSettingsToStorage(): void {
 
 function setupEventListeners(): void {
   elements.questionTimeSlider.addEventListener('input', (e) => {
-    state.questionTime.set(parseInt((e.target as HTMLInputElement).value));
+    const value = parseInt((e.target as HTMLInputElement).value);
+    state.questionTime.set(Math.max(1, value));
   });
   
   elements.answerTimeSlider.addEventListener('input', (e) => {
-    state.answerTime.set(parseInt((e.target as HTMLInputElement).value));
+    const value = parseInt((e.target as HTMLInputElement).value);
+    state.answerTime.set(Math.max(1, value));
   });
   
   elements.difficultySlider.addEventListener('input', (e) => {
-    state.difficulty.set(parseInt((e.target as HTMLInputElement).value) as DifficultyLevel);
+    const value = parseInt((e.target as HTMLInputElement).value) as DifficultyLevel;
+    state.difficulty.set(value);
+  });
+  
+  // Handle visibility change for auto-update
+  document.addEventListener('visibilitychange', () => {
+    if (!state.isQuizActive.get() && state.autoUpdateEnabled.get()) {
+      if (document.hidden) {
+        stopAutoUpdate();
+      } else {
+        startAutoUpdate();
+      }
+    }
   });
 }
 
