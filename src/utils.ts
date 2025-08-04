@@ -81,7 +81,7 @@ export function saveTheme(theme: 'light' | 'dark'): void {
 }
 
 // Debounce utility
-export function debounce<T extends (...args: any[]) => void>(
+export function debounce<T extends (...args: unknown[]) => void>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
