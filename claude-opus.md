@@ -1158,3 +1158,32 @@ PS C:\code\MyMultiplicationDrills\multiplicationdrill>
 
 
 
+Yes, they're very similar! But there are a few differences to note. Let me create the correct ESLint 9 config that matches your existing setup:The key differences between your `.eslintrc.cjs` and the new ESLint 9 format:
+
+## Main Changes:
+
+1. **File format**: 
+   - Old: `.eslintrc.cjs` (CommonJS)
+   - New: `eslint.config.js` (ES modules)
+
+2. **Structure**:
+   - Old: Single configuration object
+   - New: Array of configuration objects (flat config)
+
+3. **Your custom rules preserved**:
+   - ✅ `@typescript-eslint/no-explicit-any: 'warn'`
+   - ✅ `@typescript-eslint/no-non-null-assertion: 'off'`
+
+4. **Added browser globals explicitly** (ESLint 9 requires this)
+
+5. **Ignore patterns**: Now in a separate config object
+
+## To migrate:
+
+1. Save the artifact above as `eslint.config.js` in your project root
+2. Delete or rename your old `.eslintrc.cjs`
+3. Run `yarn lint` to test
+
+The config I created matches your existing rules and settings, just in the new ESLint 9 format. It should work immediately!
+
+**Note**: If you get any module errors, you might need to add `"type": "module"` to your `package.json`, but since you're using Vite, this shouldn't be necessary.
