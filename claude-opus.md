@@ -1305,3 +1305,296 @@ test.describe('Multiplication Drill', () => {
   });
 });
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\"; yarn lint; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test --run; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:coverage:ci; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; if (Test-Path "coverage\coverage-summary.json") { yarn coverage:check }; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+yarn run v1.22.22
+$ eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+Done in 3.54s.
+2025-08-08 16:18:25
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   e2e/quiz.spec.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+2025-08-08 16:18:25
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (fast-forwardable)
+2025-08-08 16:18:26
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.44s.
+2025-08-08 16:18:27
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.1.1 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.58 kB │ gzip: 0.96 kB
+dist/assets/main-BM380m_5.css  5.57 kB │ gzip: 1.67 kB
+dist/assets/main-CCctR4zu.js   8.36 kB │ gzip: 2.70 kB │ map: 29.18 kB
+✓ built in 472ms
+Done in 4.32s.
+2025-08-08 16:18:32
+yarn run v1.22.22
+$ vitest --run
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 31ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 71ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  16:18:33
+   Duration  3.25s (transform 225ms, setup 0ms, collect 562ms, tests 117ms, environment 5.90s, prepare 1.04s)
+
+Done in 5.14s.
+2025-08-08 16:18:37
+yarn outdated v1.22.22
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+Package Current Wanted Latest Package Type    URL
+eslint  9.32.0  9.33.0 9.33.0 devDependencies https://eslint.org
+Done in 3.31s.
+2025-08-08 16:18:41
+yarn run v1.22.22
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 23ms
+ ✓ src/__tests__/state.test.ts (9 tests) 16ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 70ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  16:18:43
+   Duration  3.82s (transform 316ms, setup 0ms, collect 728ms, tests 108ms, environment 6.16s, prepare 1.34s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+Done in 5.97s.
+2025-08-08 16:18:47
+2025-08-08 16:18:47
+yarn run v1.22.22
+$ yarn test:coverage && yarn test:e2e
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 21ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 74ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  16:18:50
+   Duration  3.73s (transform 284ms, setup 0ms, collect 563ms, tests 109ms, environment 6.05s, prepare 1.25s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+$ playwright test
+
+Running 54 tests using 5 workers
+  1) [webkit] › e2e\quiz.spec.ts:156:5 › Multiplication Drill › Quiz Mode › complete quiz cycle with timing verification
+
+    Error: expect(received).toMatch(expected)
+
+    Expected pattern: /^\d+ × \d+$/
+    Received string:  "8 × 7 = 56"
+
+      186 |       // Question phase
+      187 |       const questionText = await display.textContent();
+    > 188 |       expect(questionText).toMatch(/^\d+ × \d+$/);
+          |                            ^
+      189 |       const timerText = await timerDisplay.textContent();
+      190 |       expect(timerText).toContain('Question:');
+      191 |
+        at C:\code\MyMultiplicationDrills\multiplicationdrill\e2e\quiz.spec.ts:188:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\quiz-Multiplication-Drill--36275-le-with-timing-verification-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\quiz-Multiplication-Drill--36275-le-with-timing-verification-webkit\error-context.md
+
+  2) [webkit] › e2e\quiz.spec.ts:260:5 › Multiplication Drill › Auto-Update Mode › auto-update with visibility change simulation
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 2
+
+      283 |       const finalText = await display.textContent();
+      284 |       const finalCount = parseInt(finalText?.match(/(\d+) ×/)?.[1] || '0');
+    > 285 |       expect(finalCount).toBe(updatedCount); // Should not have incremented
+          |                          ^
+      286 |     });
+      287 |
+      288 |     test('auto-update disabled during quiz', async ({ page }) => {
+        at C:\code\MyMultiplicationDrills\multiplicationdrill\e2e\quiz.spec.ts:285:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\quiz-Multiplication-Drill--92bf1-isibility-change-simulation-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\quiz-Multiplication-Drill--92bf1-isibility-change-simulation-webkit\error-context.md
+
+  3) [webkit] › e2e\quiz.spec.ts:113:5 › Multiplication Drill › Difficulty Settings › difficulty ranges are correct
+
+    Test timeout of 45000ms exceeded.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\quiz-Multiplication-Drill--71bfe-fficulty-ranges-are-correct-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\quiz-Multiplication-Drill--71bfe-fficulty-ranges-are-correct-webkit\error-context.md
+
+  4) [webkit] › e2e\quiz.spec.ts:346:5 › Multiplication Drill › Settings Persistence › all settings persist correctly
+
+    Error: Timed out 5000ms waiting for expect(locator).toBeChecked()
+
+    Locator: locator('#autoUpdate')
+    Expected: checked
+    Received: unchecked
+    Call log:
+      - Expect "toBeChecked" with timeout 5000ms
+      - waiting for locator('#autoUpdate')
+        8 × locator resolved to <input type="checkbox" id="autoUpdate" onchange="toggleAutoUpdate(this.checked)"/>
+          - unexpected value "unchecked"
+
+
+      366 |       await expect(newPage.locator('#difficulty')).toHaveValue('2');
+      367 |       await expect(newPage.locator('#difficultyValue')).toHaveText('Medium');
+    > 368 |       await expect(newPage.locator('#autoUpdate')).toBeChecked();
+          |                                                    ^
+      369 |       await expect(newPage.locator('body')).toHaveClass('light-mode');
+      370 |
+      371 |       await newPage.close();
+        at C:\code\MyMultiplicationDrills\multiplicationdrill\e2e\quiz.spec.ts:368:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\quiz-Multiplication-Drill--69e87--settings-persist-correctly-webkit\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\quiz-Multiplication-Drill--69e87--settings-persist-correctly-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\quiz-Multiplication-Drill--69e87--settings-persist-correctly-webkit\error-context.md
+
+  4 failed
+    [webkit] › e2e\quiz.spec.ts:113:5 › Multiplication Drill › Difficulty Settings › difficulty ranges are correct
+    [webkit] › e2e\quiz.spec.ts:156:5 › Multiplication Drill › Quiz Mode › complete quiz cycle with timing verification
+    [webkit] › e2e\quiz.spec.ts:260:5 › Multiplication Drill › Auto-Update Mode › auto-update with visibility change simulation
+    [webkit] › e2e\quiz.spec.ts:346:5 › Multiplication Drill › Settings Persistence › all settings persist correctly
+  50 passed (2.1m)
+
+  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

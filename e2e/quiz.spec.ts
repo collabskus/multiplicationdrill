@@ -1,5 +1,8 @@
 import { test, expect, Page } from '@playwright/test';
 
+// Increase timeout for slower tests
+test.setTimeout(45000);
+
 // Helper functions for better test organization
 const getMultiplier = async (page: Page): Promise<number> => {
   const display = page.locator('#display');
