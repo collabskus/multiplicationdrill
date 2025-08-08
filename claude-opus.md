@@ -621,3 +621,319 @@ Looking at your build output, here's my analysis:
 - Full test suite: 82.84s
 
 Everything is running smoothly! Your build pipeline is healthy, tests are passing, and coverage is excellent. The only "issue" was my earlier suggestion about `coverage:check` which you've correctly removed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Yes! You're running `vitest` in watch mode (the default). To run tests once and exit automatically, you have a few options:
+
+## Option 1: Use `vitest run` instead of `vitest`
+In your `package.json`, change:
+```json
+"test": "vitest"
+```
+to:
+```json
+"test": "vitest run"
+```
+
+## Option 2: Add a separate script for watch mode
+Keep both options available:
+```json
+"test": "vitest run",
+"test:watch": "vitest"
+```
+
+## Option 3: Use the `--run` flag in your command
+Without changing package.json:
+```powershell
+yarn test --run
+```
+
+Looking at your output, I see you're already using `vitest run` for coverage tests (`yarn test:coverage:ci` runs `vitest run --coverage`), which is why those exit automatically.
+
+**Recommended fix** - Update your `package.json`:
+```json
+{
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "test:coverage:ci": "vitest run --coverage",
+    // ... rest of your scripts
+  }
+}
+```
+
+This way:
+- `yarn test` runs once and exits (good for CI/scripts)
+- `yarn test:watch` stays open for development
+- Your PowerShell script will complete without manual intervention
+
+
+
+
+
+Perfect. I have added --run which now shows much better performance timestamps because now there is no wait for the manual q key press. 
+I have also updated the packages
+
+Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\"; yarn lint; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test --run; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:coverage:ci; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; if (Test-Path "coverage\coverage-summary.json") { yarn coverage:check }; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> yarn add -D @types/node@latest vite@latest
+yarn add v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 3 new dependencies.
+info Direct dependencies
+├─ @types/node@24.2.1
+└─ vite@7.1.1
+info All dependencies
+├─ @types/node@24.2.1
+├─ undici-types@7.10.0
+└─ vite@7.1.1
+Done in 8.24s.
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> yarn add -D @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
+yarn add v1.22.22
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 6 new dependencies.
+info Direct dependencies
+├─ @typescript-eslint/eslint-plugin@8.39.0
+└─ @typescript-eslint/parser@8.39.0
+info All dependencies
+├─ @typescript-eslint/eslint-plugin@8.39.0
+├─ @typescript-eslint/parser@8.39.0
+├─ @typescript-eslint/project-service@8.39.0
+├─ @typescript-eslint/tsconfig-utils@8.39.0
+├─ @typescript-eslint/type-utils@8.39.0
+└─ fast-glob@3.3.3
+Done in 15.21s.
+
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\"; yarn lint; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test --run; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:coverage:ci; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; if (Test-Path "coverage\coverage-summary.json") { yarn coverage:check }; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+yarn run v1.22.22
+$ eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+Done in 3.90s.
+2025-08-08 10:11:04
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   claude-opus.md
+        modified:   package.json
+        modified:   powershell.txt
+        modified:   yarn.lock
+
+no changes added to commit (use "git add" and/or "git commit -a")
+2025-08-08 10:11:04
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (fast-forwardable)
+2025-08-08 10:11:05
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.45s.
+2025-08-08 10:11:06
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.1.1 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.58 kB │ gzip: 0.96 kB
+dist/assets/main-BM380m_5.css  5.57 kB │ gzip: 1.67 kB
+dist/assets/main-CCctR4zu.js   8.36 kB │ gzip: 2.70 kB │ map: 29.18 kB
+✓ built in 514ms
+Done in 4.51s.
+2025-08-08 10:11:11
+yarn run v1.22.22
+$ vitest --run
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/state.test.ts (9 tests) 19ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 26ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 66ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:11:13
+   Duration  3.21s (transform 381ms, setup 0ms, collect 635ms, tests 111ms, environment 5.64s, prepare 1.17s)
+
+Done in 5.10s.
+2025-08-08 10:11:16
+yarn outdated v1.22.22
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+Package Current Wanted Latest Package Type    URL
+eslint  8.57.1  8.57.1 9.32.0 devDependencies https://eslint.org
+Done in 3.23s.
+2025-08-08 10:11:20
+yarn run v1.22.22
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/state.test.ts (9 tests) 17ms
+ ✓ src/__tests__/signals.test.ts (9 tests) 21ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 70ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:11:22
+   Duration  3.71s (transform 372ms, setup 0ms, collect 644ms, tests 108ms, environment 5.97s, prepare 1.21s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+Done in 5.91s.
+2025-08-08 10:11:26
+2025-08-08 10:11:26
+yarn run v1.22.22
+$ yarn test:coverage && yarn test:e2e
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 21ms
+ ✓ src/__tests__/state.test.ts (9 tests) 17ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 73ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:11:29
+   Duration  3.76s (transform 251ms, setup 0ms, collect 572ms, tests 112ms, environment 6.06s, prepare 1.29s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+$ playwright test
+
+Running 24 tests using 5 workers
+  24 passed (54.9s)
+
+To open last HTML report run:
+
+  yarn playwright show-report
+
+Done in 64.53s.
+2025-08-08 10:12:31
+PS C:\code\MyMultiplicationDrills\multiplicationdrill>
+
+
+
+Excellent improvements! Your build pipeline is now much more efficient. Let me analyze the performance gains:
+
+## 🎉 **Major Performance Improvements**
+
+### Before vs After Package Updates:
+- **Lint time**: 28.71s → **3.90s** (86% faster! 🚀)
+  - The TypeScript warning is gone
+  - New eslint plugin is much faster with TypeScript 5.9.2
+  
+- **Build time**: 12.83s → **4.51s** (65% faster!)
+  - Vite 7.1.1 has better optimization
+
+- **Unit tests**: 25.35s → **5.10s** (80% faster!)
+  - No more waiting for 'q' key press
+  - `--run` flag exits immediately
+
+- **E2E test suite**: 82.84s → **64.53s** (22% faster)
+
+### Total Pipeline Time:
+- **Before**: ~2.5 minutes with manual intervention
+- **After**: ~1.5 minutes fully automated
+
+## ✅ **Current Status**
+
+1. **All tests passing** - 32 unit tests, 24 E2E tests
+2. **Coverage maintained** - Still at 95.81%
+3. **No more warnings** - TypeScript/ESLint compatibility fixed
+4. **Fully automated** - No manual key presses needed
+5. **Only 1 outdated package** - ESLint 9.x (major version, optional to update)
+
+## 📊 **Performance Breakdown**
+```
+Task               Time     Notes
+─────────────────────────────────────
+Lint               3.90s    ✨ 7x faster!
+Build              4.51s    ✨ 3x faster!
+Unit Tests         5.10s    ✨ 5x faster!
+Coverage Tests     5.91s    Good
+E2E Tests         54.90s    Good (24 browser tests)
+─────────────────────────────────────
+Total            ~74 seconds (vs ~150+ before)
+```
+
+## 🔄 **Next Steps**
+
+1. **Commit your improvements**:
+   ```bash
+   git add package.json yarn.lock
+   git commit -m "Update dependencies and optimize test pipeline"
+   git push
+   ```
+
+2. **Optional - Update ESLint to v9** (if you want zero outdated packages):
+   ```bash
+   yarn add -D eslint@latest
+   ```
+   Note: ESLint 9 has breaking changes, so this is optional.
+
+Your pipeline is now production-ready with excellent performance! The `--run` flag was the key missing piece, and the package updates eliminated the TypeScript compatibility warnings while dramatically improving performance.
