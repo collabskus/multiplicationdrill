@@ -587,3 +587,127 @@ Your branch is ahead of 'origin/master' by 1 commit.
 
 nothing to commit, working tree clean
 PS C:\code\MyMultiplicationDrills\multiplicationdrill> git add .; git commit --message "upgrade using yarn upgrade --latest";
+[master e88dcdb] upgrade using yarn upgrade --latest
+ 1 file changed, 235 insertions(+), 1 deletion(-)
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\"; yarn lint; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test --run; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:coverage:ci; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; if (Test-Path "coverage\coverage-summary.json") { yarn coverage:check }; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+yarn run v1.22.22
+$ eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+Done in 12.09s.
+2025-08-16 10:37:24
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+2025-08-16 10:37:25
+* remote origin
+  Fetch URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  Push  URL: git@github.com:multiplicationdrill/multiplicationdrill.github.io.git
+  HEAD branch: master
+  Remote branch:
+    master tracked
+  Local branch configured for 'git pull':
+    master merges with remote master
+  Local ref configured for 'git push':
+    master pushes to master (fast-forwardable)
+2025-08-16 10:37:25
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.43s.
+2025-08-16 10:37:26
+yarn run v1.22.22
+$ tsc && vite build
+vite v7.1.2 building for production...
+✓ 8 modules transformed.
+dist/index.html                3.58 kB │ gzip: 0.96 kB
+dist/assets/main-BM380m_5.css  5.57 kB │ gzip: 1.67 kB
+dist/assets/main-CCctR4zu.js   8.36 kB │ gzip: 2.70 kB │ map: 29.18 kB
+✓ built in 527ms
+Done in 5.96s.
+2025-08-16 10:37:33
+yarn run v1.22.22
+$ vitest --run
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 20ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 64ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:37:34
+   Duration  3.07s (transform 315ms, setup 0ms, collect 627ms, tests 100ms, environment 5.39s, prepare 1.05s)
+
+Done in 4.64s.
+2025-08-16 10:37:38
+yarn outdated v1.22.22
+Done in 3.05s.
+2025-08-16 10:37:41
+yarn run v1.22.22
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 22ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 69ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:37:43
+   Duration  3.50s (transform 217ms, setup 0ms, collect 451ms, tests 105ms, environment 5.75s, prepare 1.14s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+Done in 5.60s.
+2025-08-16 10:37:47
+2025-08-16 10:37:47
+yarn run v1.22.22
+$ yarn test:coverage && yarn test:e2e
+$ vitest run --coverage
+
+ RUN  v3.2.4 C:/code/MyMultiplicationDrills/multiplicationdrill
+      Coverage enabled with v8
+
+ ✓ src/__tests__/signals.test.ts (9 tests) 20ms
+ ✓ src/__tests__/state.test.ts (9 tests) 15ms
+ ✓ src/__tests__/utils.test.ts (14 tests) 71ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  10:37:49
+   Duration  3.54s (transform 371ms, setup 0ms, collect 632ms, tests 106ms, environment 5.71s, prepare 1.12s)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   95.81 |    90.76 |   95.65 |   95.81 |
+ signals.ts |    97.1 |      100 |   91.66 |    97.1 | 30-31
+ state.ts   |     100 |      100 |     100 |     100 |
+ types.ts   |       0 |        0 |       0 |       0 |
+ utils.ts   |    92.2 |    81.25 |     100 |    92.2 | 53,63-64,71-72,80
+------------|---------|----------|---------|---------|-------------------
+$ playwright test
+
+Running 33 tests using 5 workers
+  33 passed (1.1m)
+
+To open last HTML report run:
+
+  yarn playwright show-report
+
+Done in 72.10s.
+2025-08-16 10:39:00
+PS C:\code\MyMultiplicationDrills\multiplicationdrill> git add .; git commit --message "upgrade using yarn upgrade --latest";
