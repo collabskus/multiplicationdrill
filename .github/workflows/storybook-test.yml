@@ -12,24 +12,24 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
+        cache: 'yarn'
     
     - name: Install dependencies
       run: |
         echo "Installing dependencies..."
-        npm ci
+        yarn install --frozen-lockfile
         echo "Dependencies installed successfully!"
     
     - name: Build Storybook
       run: |
         echo "Building Storybook..."
-        npm run build-storybook
+        yarn build-storybook
         echo "Storybook build complete!"
     
     - name: Verify Storybook build
@@ -42,7 +42,7 @@ jobs:
         test -f storybook-static/index.html && echo "✅ index.html found!" || echo "❌ index.html missing!"
     
     - name: Upload Storybook artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: storybook-build
         path: storybook-static/
