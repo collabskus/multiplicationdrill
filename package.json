@@ -18,7 +18,9 @@
     "coverage:check": "vitest run --coverage && node scripts/coverage-report.js",
     "coverage:html": "vitest run --coverage && echo 'Opening coverage report...' && start coverage/index.html",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
@@ -31,6 +33,13 @@
     "jsdom": "^26.1.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "@storybook/addon-essentials": "^7.6.0",
+    "@storybook/addon-interactions": "^7.6.0",
+    "@storybook/addon-links": "^7.6.0",
+    "@storybook/react": "^7.6.0",
+    "@storybook/react-webpack5": "^7.6.0",
+    "@storybook/testing-library": "^0.2.2",
+    "storybook": "^7.6.0"
   }
 }

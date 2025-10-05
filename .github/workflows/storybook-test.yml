@@ -1,0 +1,49 @@
+name: Storybook Test Build
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-storybook:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        echo "Installing dependencies..."
+        npm ci
+        echo "Dependencies installed successfully!"
+    
+    - name: Build Storybook
+      run: |
+        echo "Building Storybook..."
+        npm run build-storybook
+        echo "Storybook build complete!"
+    
+    - name: Verify Storybook build
+      run: |
+        echo "Verifying Storybook output..."
+        ls -la storybook-static/
+        echo "Files in storybook-static:"
+        find storybook-static -type f
+        echo "Checking for index.html..."
+        test -f storybook-static/index.html && echo "✅ index.html found!" || echo "❌ index.html missing!"
+    
+    - name: Upload Storybook artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: storybook-build
+        path: storybook-static/
+        retention-days: 7
