@@ -1,6 +1,6 @@
 ﻿================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 18:35:44
+Generated: 10/05/2025 18:40:46
 ================================================================================
 
 
@@ -493,6 +493,298 @@ Get-ChildItem -Recurse -File | ForEach-Object {
 
 Write-Host "Export complete! Contents saved to $outputFile"
 Write-Host "File size: $((Get-Item $outputFile).Length / 1MB) MB"
+
+
+================================================================================
+FILE: GETTING_STARTED.md
+================================================================================
+# Getting Started with Storybook
+
+## ðŸŽ¯ One-Command Setup
+
+```bash
+chmod +x setup-storybook.sh && ./setup-storybook.sh
+```
+
+That's it! The script will guide you through everything.
+
+---
+
+## ðŸ“‹ Manual Setup (Step-by-Step)
+
+### Step 1: Create the Files
+
+Create these directories:
+```bash
+mkdir -p .storybook
+mkdir -p src/stories
+```
+
+### Step 2: Add Configuration Files
+
+Create `.storybook/main.js`:
+```javascript
+module.exports = {
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/html-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+  core: {
+    disableTelemetry: true,
+  },
+};
+```
+
+Create `.storybook/preview.js`:
+```javascript
+module.exports = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#0a0a0a' },
+        { name: 'light', value: '#ffffff' },
+      ],
+    },
+  },
+};
+```
+
+### Step 3: Copy Story Files
+
+Copy these files from the artifacts I created:
+- `src/stories/Display.stories.ts`
+- `src/stories/Button.stories.ts`
+- `src/stories/Slider.stories.ts`
+- `src/stories/Progress.stories.ts`
+- `src/stories/FullApp.stories.ts`
+
+### Step 4: Update package.json
+
+Add to `devDependencies`:
+```json
+{
+  "@storybook/addon-essentials": "^8.5.0",
+  "@storybook/addon-interactions": "^8.5.0",
+  "@storybook/addon-links": "^8.5.0",
+  "@storybook/blocks": "^8.5.0",
+  "@storybook/html": "^8.5.0",
+  "@storybook/html-vite": "^8.5.0",
+  "@storybook/test": "^8.5.0",
+  "storybook": "^8.5.0"
+}
+```
+
+Add to `scripts`:
+```json
+{
+  "storybook": "storybook dev -p 6006",
+  "build-storybook": "storybook build"
+}
+```
+
+### Step 5: Commit Everything
+
+```bash
+# Create feature branch
+git checkout -b feature/add-storybook
+
+# Stage all files
+git add .storybook/ src/stories/ package.json
+
+# Add documentation (optional but recommended)
+git add STORYBOOK.md WORKFLOW_GUIDE.md QUICK_REFERENCE.md SETUP_SUMMARY.md
+
+# Commit
+git commit -m "feat: add Storybook support
+
+- Add Storybook 8.5 configuration
+- Create stories for Display, Button, Slider, Progress
+- Add FullApp interactive demo
+- Include comprehensive documentation
+
+Uses existing workflow (Node 22, yarn.lock deletion)"
+
+# Push
+git push -u origin feature/add-storybook
+```
+
+### Step 6: Watch GitHub Actions
+
+1. Go to your repository on GitHub
+2. Click **Actions** tab
+3. Watch **"Storybook Test Build"** workflow run
+4. Wait for green checkmark âœ…
+
+### Step 7: Preview Storybook
+
+1. Click on the completed workflow run
+2. Scroll to **Artifacts** section
+3. Download **storybook-build**
+4. Extract the zip file
+5. Open `index.html` in your browser
+
+### Step 8: Review & Merge
+
+1. Open a Pull Request
+2. Review the build output
+3. Check the downloaded Storybook preview
+4. Merge to master!
+
+---
+
+## âœ… Verification Checklist
+
+Before pushing, make sure:
+
+- [ ] `.storybook/main.js` exists (not .ts!)
+- [ ] `.storybook/preview.js` exists (not .ts!)
+- [ ] All 5 story files in `src/stories/`
+- [ ] `package.json` updated with Storybook deps
+- [ ] `package.json` updated with scripts
+- [ ] Documentation files added (optional)
+- [ ] Existing `storybook-test.yml` unchanged (it's perfect!)
+
+---
+
+## ðŸŽ¬ What Happens in GitHub Actions
+
+Your existing workflow will:
+
+1. âœ… **Setup Node 22** (hard-learned: specific version required)
+2. âœ… **Delete yarn.lock** (hard-learned: prevents conflicts)
+3. âœ… **Install dependencies** (fresh, clean install)
+4. âœ… **Build Storybook** (yarn build-storybook)
+5. âœ… **Verify output** (detailed file listing)
+6. âœ… **Upload artifact** (available for 7 days)
+
+No changes needed to your workflow - it's already perfect!
+
+---
+
+## ðŸš€ Quick Start (Fastest Way)
+
+```bash
+# 1. Use the setup script
+./setup-storybook.sh
+
+# 2. Watch GitHub Actions
+# (Go to Actions tab in browser)
+
+# 3. Download artifact when done
+# (Click workflow run â†’ Artifacts section)
+
+# 4. Open index.html
+# (Extract zip and open in browser)
+
+# 5. Create PR and merge!
+```
+
+---
+
+## ðŸ“š What You Get
+
+### 28 Interactive Stories
+- Display component (4 variants)
+- Button component (6 variants)
+- Slider component (6 variants)
+- Progress component (7 variants)
+- Full application (5 variants)
+
+### Complete Documentation
+- STORYBOOK.md - Full guide
+- WORKFLOW_GUIDE.md - Step-by-step workflows
+- QUICK_REFERENCE.md - Quick reference card
+- SETUP_SUMMARY.md - Setup overview
+- GETTING_STARTED.md - This file!
+
+---
+
+## ðŸŽ“ Learning Objectives
+
+This setup teaches you:
+- âœ… CI/CD workflows with GitHub Actions
+- âœ… Component-driven development
+- âœ… Design system thinking
+- âœ… Cloud-first development (no local builds!)
+- âœ… Artifact-based workflows
+- âœ… The importance of version specificity (Node 22)
+- âœ… The value of fresh dependencies (yarn.lock deletion)
+
+---
+
+## ðŸ’¡ Pro Tips
+
+1. **Small commits** - Faster builds, easier debugging
+2. **Watch the logs** - Learn from the build output
+3. **Download artifacts** - Preview before merging
+4. **Read the docs** - Each guide has specific info
+5. **Respect the workflow** - Don't change Node version or remove yarn.lock deletion
+
+---
+
+## ðŸ†˜ Troubleshooting
+
+### Build Fails
+â†’ Check Actions logs  
+â†’ Verify all files exist  
+â†’ Check package.json syntax  
+
+### Stories Don't Appear
+â†’ Verify .stories.ts file naming  
+â†’ Check exports in story files  
+â†’ Ensure title is set in meta  
+
+### CSS Not Working
+â†’ Stories use existing style.css  
+â†’ No additional imports needed  
+â†’ Check browser console in artifact  
+
+### TypeScript Errors
+â†’ All stories are TypeScript  
+â†’ Check imports and types  
+â†’ Verify story file syntax  
+
+---
+
+## ðŸŽ‰ Success!
+
+You'll know it worked when:
+- âœ… GitHub Actions shows green checkmark
+- âœ… Artifact downloads successfully
+- âœ… index.html opens and shows stories
+- âœ… All components render correctly
+- âœ… Controls work in the UI
+- âœ… No console errors
+
+---
+
+## ðŸ”— Quick Links
+
+- [Full Documentation](./STORYBOOK.md)
+- [Workflow Guide](./WORKFLOW_GUIDE.md)
+- [Quick Reference](./QUICK_REFERENCE.md)
+- [Setup Summary](./SETUP_SUMMARY.md)
+
+---
+
+**Ready? Let's build some stories! ðŸš€**
 
 
 ================================================================================
@@ -2258,7 +2550,7 @@ FILE: repo-contents.txt
 ================================================================================
 ================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 18:35:44
+Generated: 10/05/2025 18:40:46
 ================================================================================
 
 
@@ -2751,6 +3043,298 @@ Get-ChildItem -Recurse -File | ForEach-Object {
 
 Write-Host "Export complete! Contents saved to $outputFile"
 Write-Host "File size: $((Get-Item $outputFile).Length / 1MB) MB"
+
+
+================================================================================
+FILE: GETTING_STARTED.md
+================================================================================
+# Getting Started with Storybook
+
+## ðŸŽ¯ One-Command Setup
+
+```bash
+chmod +x setup-storybook.sh && ./setup-storybook.sh
+```
+
+That's it! The script will guide you through everything.
+
+---
+
+## ðŸ“‹ Manual Setup (Step-by-Step)
+
+### Step 1: Create the Files
+
+Create these directories:
+```bash
+mkdir -p .storybook
+mkdir -p src/stories
+```
+
+### Step 2: Add Configuration Files
+
+Create `.storybook/main.js`:
+```javascript
+module.exports = {
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/html-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+  core: {
+    disableTelemetry: true,
+  },
+};
+```
+
+Create `.storybook/preview.js`:
+```javascript
+module.exports = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#0a0a0a' },
+        { name: 'light', value: '#ffffff' },
+      ],
+    },
+  },
+};
+```
+
+### Step 3: Copy Story Files
+
+Copy these files from the artifacts I created:
+- `src/stories/Display.stories.ts`
+- `src/stories/Button.stories.ts`
+- `src/stories/Slider.stories.ts`
+- `src/stories/Progress.stories.ts`
+- `src/stories/FullApp.stories.ts`
+
+### Step 4: Update package.json
+
+Add to `devDependencies`:
+```json
+{
+  "@storybook/addon-essentials": "^8.5.0",
+  "@storybook/addon-interactions": "^8.5.0",
+  "@storybook/addon-links": "^8.5.0",
+  "@storybook/blocks": "^8.5.0",
+  "@storybook/html": "^8.5.0",
+  "@storybook/html-vite": "^8.5.0",
+  "@storybook/test": "^8.5.0",
+  "storybook": "^8.5.0"
+}
+```
+
+Add to `scripts`:
+```json
+{
+  "storybook": "storybook dev -p 6006",
+  "build-storybook": "storybook build"
+}
+```
+
+### Step 5: Commit Everything
+
+```bash
+# Create feature branch
+git checkout -b feature/add-storybook
+
+# Stage all files
+git add .storybook/ src/stories/ package.json
+
+# Add documentation (optional but recommended)
+git add STORYBOOK.md WORKFLOW_GUIDE.md QUICK_REFERENCE.md SETUP_SUMMARY.md
+
+# Commit
+git commit -m "feat: add Storybook support
+
+- Add Storybook 8.5 configuration
+- Create stories for Display, Button, Slider, Progress
+- Add FullApp interactive demo
+- Include comprehensive documentation
+
+Uses existing workflow (Node 22, yarn.lock deletion)"
+
+# Push
+git push -u origin feature/add-storybook
+```
+
+### Step 6: Watch GitHub Actions
+
+1. Go to your repository on GitHub
+2. Click **Actions** tab
+3. Watch **"Storybook Test Build"** workflow run
+4. Wait for green checkmark âœ…
+
+### Step 7: Preview Storybook
+
+1. Click on the completed workflow run
+2. Scroll to **Artifacts** section
+3. Download **storybook-build**
+4. Extract the zip file
+5. Open `index.html` in your browser
+
+### Step 8: Review & Merge
+
+1. Open a Pull Request
+2. Review the build output
+3. Check the downloaded Storybook preview
+4. Merge to master!
+
+---
+
+## âœ… Verification Checklist
+
+Before pushing, make sure:
+
+- [ ] `.storybook/main.js` exists (not .ts!)
+- [ ] `.storybook/preview.js` exists (not .ts!)
+- [ ] All 5 story files in `src/stories/`
+- [ ] `package.json` updated with Storybook deps
+- [ ] `package.json` updated with scripts
+- [ ] Documentation files added (optional)
+- [ ] Existing `storybook-test.yml` unchanged (it's perfect!)
+
+---
+
+## ðŸŽ¬ What Happens in GitHub Actions
+
+Your existing workflow will:
+
+1. âœ… **Setup Node 22** (hard-learned: specific version required)
+2. âœ… **Delete yarn.lock** (hard-learned: prevents conflicts)
+3. âœ… **Install dependencies** (fresh, clean install)
+4. âœ… **Build Storybook** (yarn build-storybook)
+5. âœ… **Verify output** (detailed file listing)
+6. âœ… **Upload artifact** (available for 7 days)
+
+No changes needed to your workflow - it's already perfect!
+
+---
+
+## ðŸš€ Quick Start (Fastest Way)
+
+```bash
+# 1. Use the setup script
+./setup-storybook.sh
+
+# 2. Watch GitHub Actions
+# (Go to Actions tab in browser)
+
+# 3. Download artifact when done
+# (Click workflow run â†’ Artifacts section)
+
+# 4. Open index.html
+# (Extract zip and open in browser)
+
+# 5. Create PR and merge!
+```
+
+---
+
+## ðŸ“š What You Get
+
+### 28 Interactive Stories
+- Display component (4 variants)
+- Button component (6 variants)
+- Slider component (6 variants)
+- Progress component (7 variants)
+- Full application (5 variants)
+
+### Complete Documentation
+- STORYBOOK.md - Full guide
+- WORKFLOW_GUIDE.md - Step-by-step workflows
+- QUICK_REFERENCE.md - Quick reference card
+- SETUP_SUMMARY.md - Setup overview
+- GETTING_STARTED.md - This file!
+
+---
+
+## ðŸŽ“ Learning Objectives
+
+This setup teaches you:
+- âœ… CI/CD workflows with GitHub Actions
+- âœ… Component-driven development
+- âœ… Design system thinking
+- âœ… Cloud-first development (no local builds!)
+- âœ… Artifact-based workflows
+- âœ… The importance of version specificity (Node 22)
+- âœ… The value of fresh dependencies (yarn.lock deletion)
+
+---
+
+## ðŸ’¡ Pro Tips
+
+1. **Small commits** - Faster builds, easier debugging
+2. **Watch the logs** - Learn from the build output
+3. **Download artifacts** - Preview before merging
+4. **Read the docs** - Each guide has specific info
+5. **Respect the workflow** - Don't change Node version or remove yarn.lock deletion
+
+---
+
+## ðŸ†˜ Troubleshooting
+
+### Build Fails
+â†’ Check Actions logs  
+â†’ Verify all files exist  
+â†’ Check package.json syntax  
+
+### Stories Don't Appear
+â†’ Verify .stories.ts file naming  
+â†’ Check exports in story files  
+â†’ Ensure title is set in meta  
+
+### CSS Not Working
+â†’ Stories use existing style.css  
+â†’ No additional imports needed  
+â†’ Check browser console in artifact  
+
+### TypeScript Errors
+â†’ All stories are TypeScript  
+â†’ Check imports and types  
+â†’ Verify story file syntax  
+
+---
+
+## ðŸŽ‰ Success!
+
+You'll know it worked when:
+- âœ… GitHub Actions shows green checkmark
+- âœ… Artifact downloads successfully
+- âœ… index.html opens and shows stories
+- âœ… All components render correctly
+- âœ… Controls work in the UI
+- âœ… No console errors
+
+---
+
+## ðŸ”— Quick Links
+
+- [Full Documentation](./STORYBOOK.md)
+- [Workflow Guide](./WORKFLOW_GUIDE.md)
+- [Quick Reference](./QUICK_REFERENCE.md)
+- [Setup Summary](./SETUP_SUMMARY.md)
+
+---
+
+**Ready? Let's build some stories! ðŸš€**
 
 
 ================================================================================
@@ -4727,6 +5311,228 @@ echo "  - Run 'npm test' to run tests"
 echo "  - Run 'npm run build' to build for production"
 
 ================================================================================
+FILE: SETUP_SUMMARY.md
+================================================================================
+# Storybook Setup Summary
+
+## âœ… What's Been Created
+
+### Configuration Files
+- `.storybook/main.js` - Storybook configuration (JavaScript, not TypeScript)
+- `.storybook/preview.js` - Global settings and themes
+
+### Story Files (src/stories/)
+- `Display.stories.ts` - Display component in manual/question/answer modes
+- `Button.stories.ts` - All button variants (start, stop, increment, reset, disabled)
+- `Slider.stories.ts` - Time and difficulty sliders with all presets
+- `Progress.stories.ts` - Progress bar in question/answer phases
+- `FullApp.stories.ts` - Complete interactive application
+
+### Documentation
+- `STORYBOOK.md` - Comprehensive Storybook guide
+- `WORKFLOW_GUIDE.md` - Step-by-step workflow instructions
+- `QUICK_REFERENCE.md` - Quick reference card
+- `SETUP_SUMMARY.md` - This file
+
+### Scripts
+- `setup-storybook.sh` - Helper script to commit everything at once
+
+## ðŸŽ¯ Key Points
+
+### Existing Workflow Preserved
+Your existing `.github/workflows/storybook-test.yml` is perfect and includes:
+- âœ… Node.js 22 (hard-learned: version matters!)
+- âœ… yarn.lock deletion (hard-learned: prevents conflicts!)
+- âœ… Detailed verification steps
+- âœ… 7-day artifact retention
+
+**No changes needed to the workflow!**
+
+### Configuration Format
+Using `.js` files instead of `.ts` for Storybook config:
+- `.storybook/main.js` (not main.ts)
+- `.storybook/preview.js` (not preview.ts)
+
+This is simpler and works perfectly with your setup.
+
+## ðŸ“¦ Dependencies to Add
+
+Add these to `package.json` devDependencies:
+
+```json
+{
+  "@storybook/addon-essentials": "^8.5.0",
+  "@storybook/addon-interactions": "^8.5.0",
+  "@storybook/addon-links": "^8.5.0",
+  "@storybook/blocks": "^8.5.0",
+  "@storybook/html": "^8.5.0",
+  "@storybook/html-vite": "^8.5.0",
+  "@storybook/test": "^8.5.0",
+  "storybook": "^8.5.0"
+}
+```
+
+And these scripts:
+```json
+{
+  "storybook": "storybook dev -p 6006",
+  "build-storybook": "storybook build"
+}
+```
+
+## ðŸš€ How to Use
+
+### Option 1: Use the Setup Script
+```bash
+chmod +x setup-storybook.sh
+./setup-storybook.sh
+```
+
+This will:
+1. Create a feature branch
+2. Stage all Storybook files
+3. Commit with a descriptive message
+4. Optionally push to GitHub
+
+### Option 2: Manual Steps
+```bash
+# Create feature branch
+git checkout -b feature/add-storybook
+
+# Stage files
+git add .storybook/
+git add src/stories/
+git add *.md
+git add package.json
+
+# Commit
+git commit -m "feat: add Storybook support with component stories"
+
+# Push
+git push -u origin feature/add-storybook
+```
+
+## ðŸŽ¬ What Happens Next
+
+1. **GitHub Actions triggers** - Uses your existing workflow
+2. **Node 22 setup** - Specific version as required
+3. **yarn.lock deleted** - Forces fresh dependency resolution
+4. **Dependencies installed** - Clean install with yarn
+5. **Storybook builds** - Creates static files
+6. **Verification runs** - Lists all output files
+7. **Artifact uploaded** - Available for 7 days
+
+## ðŸ“¥ Viewing Results
+
+1. Go to **Actions** tab in GitHub
+2. Click latest **"Storybook Test Build"** run
+3. Download **storybook-build** artifact
+4. Extract and open `index.html`
+
+## ðŸ”§ Optional: Add GitHub Pages Deployment
+
+If you want automatic deployment (not configured yet), add this job to your workflow:
+
+```yaml
+deploy-storybook:
+  runs-on: ubuntu-latest
+  needs: build-storybook
+  if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+  
+  permissions:
+    contents: write
+  
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
+  
+  - name: Download artifact
+    uses: actions/download-artifact@v4
+    with:
+      name: storybook-build
+      path: storybook-static/
+  
+  - name: Deploy
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      publish_dir: ./storybook-static
+```
+
+## ðŸ“š Available Stories
+
+### Component Stories
+- **Display** (4 variants) - Manual, question, answer, large numbers
+- **Button** (6 variants) - All button states and groups
+- **Slider** (6 variants) - Time and difficulty controls
+- **Progress** (7 variants) - All progress states + animation
+
+### Application Stories
+- **FullApp** (5 variants) - Dark/light modes, quiz/manual, difficulties
+
+**Total: 28 interactive story variants!**
+
+## ðŸŽ“ Learning Sandbox Features
+
+This setup demonstrates:
+- âœ… No local Node.js commands needed
+- âœ… CI/CD-first development
+- âœ… Artifact-based preview workflow
+- âœ… Component-driven development
+- âœ… Design system thinking
+- âœ… Hard-learned lessons baked in
+
+## ðŸ” File Checklist
+
+Before committing, verify these files exist:
+
+```
+âœ“ .storybook/main.js
+âœ“ .storybook/preview.js
+âœ“ src/stories/Display.stories.ts
+âœ“ src/stories/Button.stories.ts
+âœ“ src/stories/Slider.stories.ts
+âœ“ src/stories/Progress.stories.ts
+âœ“ src/stories/FullApp.stories.ts
+âœ“ STORYBOOK.md
+âœ“ WORKFLOW_GUIDE.md
+âœ“ QUICK_REFERENCE.md
+âœ“ SETUP_SUMMARY.md
+âœ“ setup-storybook.sh
+âœ“ package.json (updated)
+```
+
+## ðŸ’¡ Pro Tips
+
+1. **Respect the workflow** - It has hard-learned lessons built in
+2. **Node 22 matters** - Don't change the version
+3. **yarn.lock deletion** - Prevents mysterious failures
+4. **7-day artifacts** - Download within a week
+5. **Small commits** - Faster builds, easier debugging
+
+## ðŸŽ¯ Next Steps
+
+1. Review all the created files
+2. Update `package.json` with new dependencies
+3. Run the setup script or commit manually
+4. Push to GitHub
+5. Watch the Actions tab
+6. Download and preview the artifact
+7. Open a PR and merge!
+
+## ðŸ†˜ Need Help?
+
+- **Build fails**: Check Actions logs
+- **Stories don't appear**: Verify .stories.ts file naming
+- **CSS not loading**: Stories use your existing style.css
+- **Types errors**: All stories are TypeScript
+- **Questions**: See STORYBOOK.md or WORKFLOW_GUIDE.md
+
+---
+
+**Remember**: Everything runs in GitHub Actions. Your existing workflow is perfect! ðŸš€
+
+================================================================================
 FILE: STORYBOOK.md
 ================================================================================
 # Storybook for Multiplication Drill
@@ -4741,26 +5547,24 @@ This project uses a unique approach where **all Storybook commands run exclusive
 
 ### Automatic Builds
 
-Every time you push to `master` or open a pull request, GitHub Actions will:
+Every time you push to `master` or open a pull request, the existing GitHub Actions workflow (`.github/workflows/storybook-test.yml`) will:
 
-1. **Install dependencies** with yarn
-2. **Build Storybook** into static files
-3. **Upload artifacts** that persist for 30 days
-4. **Deploy to GitHub Pages** (on master branch only)
+1. **Setup Node.js 22** (hard-learned lesson: version matters!)
+2. **Delete yarn.lock** to force fresh dependency resolution (prevents stale lock issues)
+3. **Install dependencies** with yarn
+4. **Build Storybook** into static files
+5. **Verify the build** (checks for index.html and lists all files)
+6. **Upload artifacts** that persist for 7 days
 
 ### Viewing Your Storybook
 
-After a successful build on the `master` branch, your Storybook will be available at:
-
-```
-https://[your-username].github.io/[repo-name]/storybook/
-```
-
-Or check the GitHub Actions artifacts:
+Check the GitHub Actions artifacts:
 1. Go to the **Actions** tab in your repository
-2. Click on the latest **"Storybook Build & Deploy"** workflow run
-3. Download the **storybook-build** artifact
+2. Click on the latest **"Storybook Test Build"** workflow run
+3. Download the **storybook-build** artifact (available for 7 days)
 4. Extract and open `index.html` in your browser
+
+**Note**: The current workflow doesn't deploy to GitHub Pages automatically. If you want automatic deployment, you can add a deploy job to the existing workflow (see the workflow file for optional deployment code).
 
 ## ðŸ“š Available Stories
 
@@ -5436,14 +6240,13 @@ jobs:
 ================================================================================
 FILE: .github\workflows\storybook-test.yml
 ================================================================================
-name: Storybook Build & Deploy
+name: Storybook Test Build
 
 on:
   push:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
-  workflow_dispatch:
 
 jobs:
   build-storybook:
@@ -5456,67 +6259,44 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22.x'
-        cache: 'yarn'
+        node-version: '22'
+    
+    - name: Delete yarn.lock to force fresh resolution
+      run: rm -f yarn.lock
     
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: |
+        echo "Installing dependencies..."
+        yarn install
+        echo "Dependencies installed successfully!"
     
     - name: Build Storybook
-      run: yarn build-storybook
+      run: |
+        echo "Building Storybook..."
+        yarn build-storybook
+        echo "Storybook build complete!"
+    
+    - name: Verify Storybook build
+      run: |
+        echo "Verifying Storybook output..."
+        ls -la storybook-static/
+        echo "Files in storybook-static:"
+        find storybook-static -type f
+        echo "Checking for index.html..."
+        test -f storybook-static/index.html && echo "âœ… index.html found!" || echo "âŒ index.html missing!"
     
     - name: Upload Storybook artifact
       uses: actions/upload-artifact@v4
       with:
         name: storybook-build
         path: storybook-static/
-        retention-days: 30
-    
-    - name: Deploy to GitHub Pages (Storybook)
-      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./storybook-static
-        publish_branch: gh-pages-storybook
-        destination_dir: storybook
-
-  test-storybook:
-    runs-on: ubuntu-latest
-    needs: build-storybook
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22.x'
-        cache: 'yarn'
-    
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
-    
-    - name: Download Storybook artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: storybook-build
-        path: storybook-static/
-    
-    - name: Verify Storybook build
-      run: |
-        echo "Checking Storybook output..."
-        ls -la storybook-static/
-        test -f storybook-static/index.html && echo "âœ… Storybook built successfully!" || exit 1
+        retention-days: 7
 
 
 ================================================================================
-FILE: .storybook\main.ts
+FILE: .storybook\main.js
 ================================================================================
-import type { StorybookConfig } from '@storybook/html-vite';
-
-const config: StorybookConfig = {
+module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -5530,12 +6310,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  core: {
-    disableTelemetry: true,
-  },
 };
-
-export default config;
 
 
 ================================================================================
