@@ -1,6 +1,6 @@
 ﻿================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 19:23:47
+Generated: 10/05/2025 19:30:33
 ================================================================================
 
 
@@ -2550,7 +2550,7 @@ FILE: repo-contents.txt
 ================================================================================
 ================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 19:23:47
+Generated: 10/05/2025 19:30:33
 ================================================================================
 
 
@@ -7705,6 +7705,24 @@ export function debounce<T extends (...args: unknown[]) => void>(
 FILE: src\vite-env.d.ts
 ================================================================================
 /// <reference types="vite/client" />
+
+
+================================================================================
+FILE: src\components\Sample.stories.ts
+================================================================================
+export default {
+  title: 'Example/Sample',
+};
+export const Primary = () => {
+  const container = document.createElement('div');
+  container.style.padding = '20px';
+  container.style.border = '1px solid #ccc';
+  container.innerHTML = `
+    <h1>Multiplication Drill Component</h1>
+    <p>This is a sample story for vanilla TypeScript!</p>
+  `;
+  return container;
+};
 
 
 ================================================================================
