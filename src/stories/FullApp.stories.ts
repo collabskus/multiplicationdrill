@@ -51,6 +51,15 @@ const createFullApp = (args: FullAppArgs) => {
   container.style.alignItems = 'center';
   container.style.padding = '20px';
   
+  // Apply theme background
+  if (args.theme === 'dark') {
+    container.style.background = '#0a0a0a';
+  } else {
+    container.style.background = 'linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #ff0080)';
+    container.style.backgroundSize = '400% 400%';
+    container.style.animation = 'rainbow 15s ease infinite';
+  }
+  
   // Create app container
   const appContainer = document.createElement('div');
   appContainer.className = 'container';
@@ -239,6 +248,9 @@ export const DarkMode: Story = {
     initialMode: 'manual',
     difficulty: 3,
   },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
   render: createFullApp,
 };
 
@@ -247,6 +259,9 @@ export const LightMode: Story = {
     theme: 'light',
     initialMode: 'manual',
     difficulty: 3,
+  },
+  parameters: {
+    backgrounds: { default: 'light' },
   },
   render: createFullApp,
 };
@@ -257,6 +272,9 @@ export const QuizMode: Story = {
     initialMode: 'quiz',
     difficulty: 3,
   },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
   render: createFullApp,
 };
 
@@ -266,6 +284,9 @@ export const EasyDifficulty: Story = {
     initialMode: 'manual',
     difficulty: 1,
   },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
   render: createFullApp,
 };
 
@@ -274,6 +295,9 @@ export const ExpertDifficulty: Story = {
     theme: 'dark',
     initialMode: 'manual',
     difficulty: 4,
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
   },
   render: createFullApp,
 };
