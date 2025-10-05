@@ -1,6 +1,6 @@
 ﻿================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 18:22:08
+Generated: 10/05/2025 18:35:44
 ================================================================================
 
 
@@ -1041,7 +1041,7 @@ FILE: package.json
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc  vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -1050,9 +1050,9 @@ FILE: package.json
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
-    "test:all": "yarn test:coverage  yarn test:e2e",
-    "coverage:check": "vitest run --coverage  node scripts/coverage-report.js",
-    "coverage:html": "vitest run --coverage  echo Opening coverage report...  start coverage/index.html",
+    "test:all": "yarn test:coverage && yarn test:e2e",
+    "coverage:check": "vitest run --coverage && node scripts/coverage-report.js",
+    "coverage:html": "vitest run --coverage && echo Opening coverage report... && start coverage/index.html",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
@@ -1060,6 +1060,13 @@ FILE: package.json
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-links": "^8.5.0",
+    "@storybook/blocks": "^8.5.0",
+    "@storybook/html": "^8.5.0",
+    "@storybook/html-vite": "^8.5.0",
+    "@storybook/test": "^8.5.0",
     "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
@@ -1067,20 +1074,13 @@ FILE: package.json
     "@vitest/ui": "^3.2.4",
     "eslint": "^9.34.0",
     "jsdom": "^26.1.0",
+    "storybook": "^8.5.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.3",
-    "vitest": "^3.2.4",
-    "@storybook/addon-essentials": "^7.6.0",
-    "@storybook/addon-interactions": "^7.6.0",
-    "@storybook/addon-links": "^7.6.0",
-    "@storybook/html": "^7.6.0",
-    "@storybook/html-vite": "^7.6.0",
-    "@storybook/testing-library": "^0.2.2",
-    "storybook": "^7.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "vitest": "^3.2.4"
   }
 }
+
 
 ================================================================================
 FILE: playwright.config.ts
@@ -1856,6 +1856,213 @@ remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To github.com:multiplicationdrill/multiplicationdrill.github.io.git
    1fcc23a..18ddc1c  master -> master
 PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyMultiplicationDrills\multiplicationdrill\"; yarn lint; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git status; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; git remote show origin; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn build; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test --run; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn outdated; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:coverage:ci; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; if (Test-Path "coverage\coverage-summary.json") { yarn coverage:check }; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn test:all; Get-Date -Format "yyyy-MM-dd HH:mm:ss"; yarn upgrade --latest; git add .; git commit --message "upgrade using yarn upgrade --latest"; git remoteshow origin; git push origin master;
+
+
+================================================================================
+FILE: QUICK_REFERENCE.md
+================================================================================
+# Storybook Quick Reference Card
+
+## ðŸŽ¯ One-Line Summary
+**All Node.js commands run in GitHub Actions. Just push and watch the magic happen!**
+
+## ðŸ“ File Structure
+
+```
+.storybook/
+  â”œâ”€â”€ main.ts           # Storybook configuration
+  â””â”€â”€ preview.ts        # Global decorators & parameters
+
+src/stories/
+  â”œâ”€â”€ Display.stories.ts    # Display component variations
+  â”œâ”€â”€ Button.stories.ts     # Button component variations
+  â”œâ”€â”€ Slider.stories.ts     # Slider component variations
+  â”œâ”€â”€ Progress.stories.ts   # Progress bar variations
+  â””â”€â”€ FullApp.stories.ts    # Complete application demos
+
+.github/workflows/
+  â””â”€â”€ storybook-test.yml    # CI/CD automation
+```
+
+## ðŸš€ Quick Commands
+
+### Local (What You DO Run)
+```bash
+# Create story file
+touch src/stories/MyComponent.stories.ts
+
+# Stage changes
+git add .
+
+# Commit
+git commit -m "feat: add MyComponent story"
+
+# Push (triggers GitHub Actions)
+git push origin branch-name
+```
+
+### GitHub Actions (What Runs Automatically)
+```bash
+# These run automatically - you DON'T run them:
+yarn install --frozen-lockfile
+yarn build-storybook
+# Artifact upload
+# GitHub Pages deployment (master only)
+```
+
+## ðŸ“ Story Template
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/html';
+
+interface MyComponentArgs {
+  prop1: string;
+  prop2: number;
+}
+
+const meta: Meta<MyComponentArgs> = {
+  title: 'Category/ComponentName',
+  tags: ['autodocs'],
+  argTypes: {
+    prop1: { control: 'text' },
+    prop2: { control: 'number' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<MyComponentArgs>;
+
+export const Default: Story = {
+  args: {
+    prop1: 'value',
+    prop2: 42,
+  },
+  render: (args) => {
+    const element = document.createElement('div');
+    element.textContent = args.prop1;
+    return element;
+  },
+};
+```
+
+## ðŸŽ¨ Available ArgTypes
+
+```typescript
+argTypes: {
+  text: { control: 'text' },
+  number: { control: 'number' },
+  boolean: { control: 'boolean' },
+  range: { control: { type: 'range', min: 0, max: 100 } },
+  color: { control: 'color' },
+  date: { control: 'date' },
+  select: { control: 'select', options: ['a', 'b', 'c'] },
+  radio: { control: 'radio', options: ['x', 'y', 'z'] },
+  onClick: { action: 'clicked' },
+}
+```
+
+## ðŸ” Viewing Results
+
+### During Development (PR)
+1. Actions tab â†’ Workflow run
+2. Download `storybook-build` artifact
+3. Extract â†’ open `index.html`
+
+### Production (Master)
+```
+https://[username].github.io/[repo]/storybook/
+```
+
+## âš¡ Workflow Status
+
+### âœ… Success
+- Green checkmark in Actions
+- Artifact available for download
+- No TypeScript/build errors
+
+### âŒ Failure
+- Red X in Actions
+- Check logs in failed step
+- Fix errors and push again
+
+## ðŸŽ¯ Common Tasks
+
+### Add New Story
+```bash
+# 1. Create file
+cat > src/stories/New.stories.ts << 'EOF'
+// Your story code here
+EOF
+
+# 2. Commit and push
+git add src/stories/New.stories.ts
+git commit -m "feat: add New component story"
+git push
+```
+
+### Update Existing Story
+```bash
+# 1. Edit file
+nano src/stories/Existing.stories.ts
+
+# 2. Commit and push
+git add src/stories/Existing.stories.ts
+git commit -m "fix: update Existing story props"
+git push
+```
+
+### View Build Logs
+```
+GitHub â†’ Actions â†’ Latest workflow â†’ Build Storybook step
+```
+
+### Download Preview
+```
+GitHub â†’ Actions â†’ Latest workflow â†’ Artifacts â†’ storybook-build
+```
+
+## ðŸ› Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| Module not found | Check imports, update package.json |
+| TypeScript error | Fix types in .stories.ts file |
+| Build fails | Check workflow logs in Actions |
+| Empty Storybook | Verify .stories.ts naming and exports |
+| CSS not working | Check preview.ts imports style.css |
+
+## ðŸ“Š Workflow Timing
+
+- **Build**: 2-5 minutes
+- **Deploy**: 1-2 minutes (master only)
+- **Artifact retention**: 30 days
+
+## ðŸŽ“ Learning Objectives
+
+âœ… CI/CD pipelines  
+âœ… GitHub Actions automation  
+âœ… Component-driven development  
+âœ… Static site deployment  
+âœ… Cloud-first development
+
+## ðŸ”— Quick Links
+
+- [Full Documentation](./STORYBOOK.md)
+- [Workflow Guide](./WORKFLOW_GUIDE.md)
+- [Storybook Docs](https://storybook.js.org/docs)
+- [GitHub Actions](https://docs.github.com/en/actions)
+
+## ðŸ’¡ Pro Tips
+
+1. **Push early, push often** - Builds are fast!
+2. **Use descriptive commits** - Help future you
+3. **Download artifacts** - Preview before merging
+4. **Read the logs** - They're very informative
+5. **Keep stories simple** - One concern per story
+
+---
+
+**Remember**: Everything runs in the cloud! â˜ï¸ðŸš€
 
 
 ================================================================================
@@ -2051,7 +2258,7 @@ FILE: repo-contents.txt
 ================================================================================
 ================================================================================
 REPOSITORY CONTENTS EXPORT
-Generated: 10/05/2025 18:22:08
+Generated: 10/05/2025 18:35:44
 ================================================================================
 
 
@@ -3092,7 +3299,7 @@ FILE: package.json
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc  vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -3101,9 +3308,9 @@ FILE: package.json
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:report": "playwright show-report",
-    "test:all": "yarn test:coverage  yarn test:e2e",
-    "coverage:check": "vitest run --coverage  node scripts/coverage-report.js",
-    "coverage:html": "vitest run --coverage  echo Opening coverage report...  start coverage/index.html",
+    "test:all": "yarn test:coverage && yarn test:e2e",
+    "coverage:check": "vitest run --coverage && node scripts/coverage-report.js",
+    "coverage:html": "vitest run --coverage && echo Opening coverage report... && start coverage/index.html",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
@@ -3111,6 +3318,13 @@ FILE: package.json
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-links": "^8.5.0",
+    "@storybook/blocks": "^8.5.0",
+    "@storybook/html": "^8.5.0",
+    "@storybook/html-vite": "^8.5.0",
+    "@storybook/test": "^8.5.0",
     "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
@@ -3118,20 +3332,13 @@ FILE: package.json
     "@vitest/ui": "^3.2.4",
     "eslint": "^9.34.0",
     "jsdom": "^26.1.0",
+    "storybook": "^8.5.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.3",
-    "vitest": "^3.2.4",
-    "@storybook/addon-essentials": "^7.6.0",
-    "@storybook/addon-interactions": "^7.6.0",
-    "@storybook/addon-links": "^7.6.0",
-    "@storybook/html": "^7.6.0",
-    "@storybook/html-vite": "^7.6.0",
-    "@storybook/testing-library": "^0.2.2",
-    "storybook": "^7.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "vitest": "^3.2.4"
   }
 }
+
 
 ================================================================================
 FILE: playwright.config.ts
@@ -3910,6 +4117,213 @@ PS C:\code\MyMultiplicationDrills\multiplicationdrill> Set-Location "C:\code\MyM
 
 
 ================================================================================
+FILE: QUICK_REFERENCE.md
+================================================================================
+# Storybook Quick Reference Card
+
+## ðŸŽ¯ One-Line Summary
+**All Node.js commands run in GitHub Actions. Just push and watch the magic happen!**
+
+## ðŸ“ File Structure
+
+```
+.storybook/
+  â”œâ”€â”€ main.ts           # Storybook configuration
+  â””â”€â”€ preview.ts        # Global decorators & parameters
+
+src/stories/
+  â”œâ”€â”€ Display.stories.ts    # Display component variations
+  â”œâ”€â”€ Button.stories.ts     # Button component variations
+  â”œâ”€â”€ Slider.stories.ts     # Slider component variations
+  â”œâ”€â”€ Progress.stories.ts   # Progress bar variations
+  â””â”€â”€ FullApp.stories.ts    # Complete application demos
+
+.github/workflows/
+  â””â”€â”€ storybook-test.yml    # CI/CD automation
+```
+
+## ðŸš€ Quick Commands
+
+### Local (What You DO Run)
+```bash
+# Create story file
+touch src/stories/MyComponent.stories.ts
+
+# Stage changes
+git add .
+
+# Commit
+git commit -m "feat: add MyComponent story"
+
+# Push (triggers GitHub Actions)
+git push origin branch-name
+```
+
+### GitHub Actions (What Runs Automatically)
+```bash
+# These run automatically - you DON'T run them:
+yarn install --frozen-lockfile
+yarn build-storybook
+# Artifact upload
+# GitHub Pages deployment (master only)
+```
+
+## ðŸ“ Story Template
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/html';
+
+interface MyComponentArgs {
+  prop1: string;
+  prop2: number;
+}
+
+const meta: Meta<MyComponentArgs> = {
+  title: 'Category/ComponentName',
+  tags: ['autodocs'],
+  argTypes: {
+    prop1: { control: 'text' },
+    prop2: { control: 'number' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<MyComponentArgs>;
+
+export const Default: Story = {
+  args: {
+    prop1: 'value',
+    prop2: 42,
+  },
+  render: (args) => {
+    const element = document.createElement('div');
+    element.textContent = args.prop1;
+    return element;
+  },
+};
+```
+
+## ðŸŽ¨ Available ArgTypes
+
+```typescript
+argTypes: {
+  text: { control: 'text' },
+  number: { control: 'number' },
+  boolean: { control: 'boolean' },
+  range: { control: { type: 'range', min: 0, max: 100 } },
+  color: { control: 'color' },
+  date: { control: 'date' },
+  select: { control: 'select', options: ['a', 'b', 'c'] },
+  radio: { control: 'radio', options: ['x', 'y', 'z'] },
+  onClick: { action: 'clicked' },
+}
+```
+
+## ðŸ” Viewing Results
+
+### During Development (PR)
+1. Actions tab â†’ Workflow run
+2. Download `storybook-build` artifact
+3. Extract â†’ open `index.html`
+
+### Production (Master)
+```
+https://[username].github.io/[repo]/storybook/
+```
+
+## âš¡ Workflow Status
+
+### âœ… Success
+- Green checkmark in Actions
+- Artifact available for download
+- No TypeScript/build errors
+
+### âŒ Failure
+- Red X in Actions
+- Check logs in failed step
+- Fix errors and push again
+
+## ðŸŽ¯ Common Tasks
+
+### Add New Story
+```bash
+# 1. Create file
+cat > src/stories/New.stories.ts << 'EOF'
+// Your story code here
+EOF
+
+# 2. Commit and push
+git add src/stories/New.stories.ts
+git commit -m "feat: add New component story"
+git push
+```
+
+### Update Existing Story
+```bash
+# 1. Edit file
+nano src/stories/Existing.stories.ts
+
+# 2. Commit and push
+git add src/stories/Existing.stories.ts
+git commit -m "fix: update Existing story props"
+git push
+```
+
+### View Build Logs
+```
+GitHub â†’ Actions â†’ Latest workflow â†’ Build Storybook step
+```
+
+### Download Preview
+```
+GitHub â†’ Actions â†’ Latest workflow â†’ Artifacts â†’ storybook-build
+```
+
+## ðŸ› Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| Module not found | Check imports, update package.json |
+| TypeScript error | Fix types in .stories.ts file |
+| Build fails | Check workflow logs in Actions |
+| Empty Storybook | Verify .stories.ts naming and exports |
+| CSS not working | Check preview.ts imports style.css |
+
+## ðŸ“Š Workflow Timing
+
+- **Build**: 2-5 minutes
+- **Deploy**: 1-2 minutes (master only)
+- **Artifact retention**: 30 days
+
+## ðŸŽ“ Learning Objectives
+
+âœ… CI/CD pipelines  
+âœ… GitHub Actions automation  
+âœ… Component-driven development  
+âœ… Static site deployment  
+âœ… Cloud-first development
+
+## ðŸ”— Quick Links
+
+- [Full Documentation](./STORYBOOK.md)
+- [Workflow Guide](./WORKFLOW_GUIDE.md)
+- [Storybook Docs](https://storybook.js.org/docs)
+- [GitHub Actions](https://docs.github.com/en/actions)
+
+## ðŸ’¡ Pro Tips
+
+1. **Push early, push often** - Builds are fast!
+2. **Use descriptive commits** - Help future you
+3. **Download artifacts** - Preview before merging
+4. **Read the logs** - They're very informative
+5. **Keep stories simple** - One concern per story
+
+---
+
+**Remember**: Everything runs in the cloud! â˜ï¸ðŸš€
+
+
+================================================================================
 FILE: README.md
 ================================================================================
 # Multiplication Drill
@@ -4103,6 +4517,170 @@ FILE: repo-contents.txt
 
 
 ================================================================================
+FILE: setup-storybook.sh
+================================================================================
+#!/bin/bash
+
+# Setup Storybook for Multiplication Drill
+# This script helps you commit all Storybook files at once
+
+echo "ðŸš€ Setting up Storybook for Multiplication Drill..."
+echo ""
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Create .storybook directory if it doesn't exist
+if [ ! -d ".storybook" ]; then
+    echo -e "${BLUE}Creating .storybook directory...${NC}"
+    mkdir -p .storybook
+fi
+
+# Create stories directory if it doesn't exist
+if [ ! -d "src/stories" ]; then
+    echo -e "${BLUE}Creating src/stories directory...${NC}"
+    mkdir -p src/stories
+fi
+
+echo ""
+echo -e "${GREEN}âœ… Directory structure ready!${NC}"
+echo ""
+
+# List files to be committed
+echo -e "${BLUE}ðŸ“ Files to commit:${NC}"
+echo ""
+echo "Configuration:"
+echo "  - .storybook/main.ts"
+echo "  - .storybook/preview.ts"
+echo ""
+echo "Stories:"
+echo "  - src/stories/Display.stories.ts"
+echo "  - src/stories/Button.stories.ts"
+echo "  - src/stories/Slider.stories.ts"
+echo "  - src/stories/Progress.stories.ts"
+echo "  - src/stories/FullApp.stories.ts"
+echo ""
+echo "Workflow:"
+echo "  - .github/workflows/storybook-test.yml"
+echo ""
+echo "Documentation:"
+echo "  - STORYBOOK.md"
+echo "  - WORKFLOW_GUIDE.md"
+echo ""
+echo "Package:"
+echo "  - package.json (updated with Storybook dependencies)"
+echo ""
+
+# Check current branch
+BRANCH=$(git branch --show-current)
+echo -e "${YELLOW}Current branch: ${BRANCH}${NC}"
+echo ""
+
+# Prompt user
+echo -e "${BLUE}Ready to commit these files?${NC}"
+echo "This will:"
+echo "  1. Create a new branch 'feature/add-storybook'"
+echo "  2. Add all Storybook files"
+echo "  3. Commit with message 'feat: add Storybook support'"
+echo "  4. Push to GitHub"
+echo ""
+read -p "Continue? (y/n) " -n 1 -r
+echo ""
+
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborted."
+    exit 1
+fi
+
+# Create feature branch
+echo ""
+echo -e "${BLUE}Creating feature branch...${NC}"
+git checkout -b feature/add-storybook 2>/dev/null || git checkout feature/add-storybook
+
+# Stage files
+echo -e "${BLUE}Staging files...${NC}"
+git add .storybook/
+git add src/stories/
+git add .github/workflows/storybook-test.yml
+git add STORYBOOK.md
+git add WORKFLOW_GUIDE.md
+git add package.json
+
+# Show what will be committed
+echo ""
+echo -e "${BLUE}Files staged for commit:${NC}"
+git status --short
+
+# Commit
+echo ""
+echo -e "${BLUE}Creating commit...${NC}"
+git commit -m "feat: add Storybook support with component stories
+
+- Add Storybook 8.5 configuration
+- Create stories for Display, Button, Slider, Progress components
+- Add FullApp story showcasing complete application
+- Set up GitHub Actions workflow for automated builds
+- Add comprehensive documentation
+- Configure automatic deployment to GitHub Pages
+
+All Storybook commands run exclusively through GitHub Actions"
+
+# Check if commit was successful
+if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN}âœ… Commit created successfully!${NC}"
+    echo ""
+    
+    # Prompt for push
+    echo -e "${BLUE}Ready to push to GitHub?${NC}"
+    read -p "Push now? (y/n) " -n 1 -r
+    echo ""
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${BLUE}Pushing to GitHub...${NC}"
+        git push -u origin feature/add-storybook
+        
+        if [ $? -eq 0 ]; then
+            echo ""
+            echo -e "${GREEN}ðŸŽ‰ Success!${NC}"
+            echo ""
+            echo "Next steps:"
+            echo "  1. Go to your GitHub repository"
+            echo "  2. Click the 'Actions' tab"
+            echo "  3. Watch the 'Storybook Build & Deploy' workflow"
+            echo "  4. Once complete, download the artifact to preview"
+            echo "  5. Create a Pull Request to merge to master"
+            echo ""
+            echo "Your Storybook will be available at:"
+            echo "  https://[username].github.io/[repo]/storybook/"
+            echo ""
+            echo -e "${YELLOW}Note: Live deployment only happens on master branch${NC}"
+        else
+            echo ""
+            echo -e "${YELLOW}âš ï¸  Push failed. You can push manually with:${NC}"
+            echo "  git push -u origin feature/add-storybook"
+        fi
+    else
+        echo ""
+        echo "Skipped push. You can push later with:"
+        echo "  git push -u origin feature/add-storybook"
+    fi
+else
+    echo ""
+    echo -e "${YELLOW}âš ï¸  Commit failed. Please check the error above.${NC}"
+    exit 1
+fi
+
+echo ""
+echo -e "${GREEN}ðŸŽ“ Learning Sandbox Mode Active!${NC}"
+echo "Remember: All Node.js commands run in GitHub Actions only!"
+echo ""
+
+
+================================================================================
 FILE: setup.sh
 ================================================================================
 #!/bin/bash
@@ -4147,6 +4725,200 @@ echo "âœ¨ Setup complete! You can now:"
 echo "  - Run 'npm run dev' to start the development server"
 echo "  - Run 'npm test' to run tests"
 echo "  - Run 'npm run build' to build for production"
+
+================================================================================
+FILE: STORYBOOK.md
+================================================================================
+# Storybook for Multiplication Drill
+
+This project uses Storybook to document and test UI components in isolation.
+
+## ðŸŽ¯ Learning Sandbox Approach
+
+This project uses a unique approach where **all Storybook commands run exclusively through GitHub Actions**. We don't run `yarn storybook` locally - everything happens in CI/CD!
+
+## ðŸš€ How It Works
+
+### Automatic Builds
+
+Every time you push to `master` or open a pull request, GitHub Actions will:
+
+1. **Install dependencies** with yarn
+2. **Build Storybook** into static files
+3. **Upload artifacts** that persist for 30 days
+4. **Deploy to GitHub Pages** (on master branch only)
+
+### Viewing Your Storybook
+
+After a successful build on the `master` branch, your Storybook will be available at:
+
+```
+https://[your-username].github.io/[repo-name]/storybook/
+```
+
+Or check the GitHub Actions artifacts:
+1. Go to the **Actions** tab in your repository
+2. Click on the latest **"Storybook Build & Deploy"** workflow run
+3. Download the **storybook-build** artifact
+4. Extract and open `index.html` in your browser
+
+## ðŸ“š Available Stories
+
+### Components
+
+- **Display**: Shows the main quiz display in different states
+  - Manual mode
+  - Question mode
+  - Answer mode
+  - Large numbers
+
+- **Button**: Interactive buttons used throughout the app
+  - Start Quiz
+  - Stop Quiz
+  - Increment
+  - Reset
+  - Disabled state
+  - Button groups
+
+- **Slider**: Configuration sliders
+  - Question Time (1-30 seconds)
+  - Answer Time (1-30 seconds)
+  - Difficulty (Easy/Medium/Hard/Expert)
+
+- **Progress**: Quiz progress indicators
+  - Question phase progress
+  - Answer phase progress
+  - Animated progress
+
+### Full Application
+
+- **FullApplication**: Complete app in different configurations
+  - Dark/Light modes
+  - Manual/Quiz modes
+  - Different difficulty levels
+
+## ðŸŽ¨ Component Development Workflow
+
+Since we're using GitHub Actions exclusively:
+
+1. **Create/Edit Stories**
+   - Add new `.stories.ts` files in `src/stories/`
+   - Follow the existing patterns
+
+2. **Commit and Push**
+   ```bash
+   git add src/stories/NewComponent.stories.ts
+   git commit -m "Add NewComponent stories"
+   git push origin feature-branch
+   ```
+
+3. **Open Pull Request**
+   - GitHub Actions will automatically build Storybook
+   - Review the build artifacts in the PR
+
+4. **Merge to Master**
+   - After merge, Storybook deploys automatically
+   - View live at your GitHub Pages URL
+
+## ðŸ” Debugging Build Issues
+
+If the Storybook build fails:
+
+1. Check the **Actions** tab
+2. Click on the failed workflow run
+3. Expand the **"Build Storybook"** step
+4. Review the error logs
+
+Common issues:
+- Missing dependencies (check package.json)
+- TypeScript errors (run `yarn type-check` locally first)
+- Import path issues (ensure all imports are correct)
+
+## ðŸ“¦ Story Structure
+
+Each story file follows this pattern:
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/html';
+
+interface ComponentArgs {
+  // Define your component's props
+}
+
+const meta: Meta<ComponentArgs> = {
+  title: 'Category/ComponentName',
+  tags: ['autodocs'],
+  argTypes: {
+    // Define controls
+  },
+};
+
+export default meta;
+type Story = StoryObj<ComponentArgs>;
+
+export const StoryName: Story = {
+  args: {
+    // Default values
+  },
+  render: (args) => {
+    // Create and return DOM element
+  },
+};
+```
+
+## ðŸ› ï¸ Adding New Stories
+
+1. Create a new file: `src/stories/YourComponent.stories.ts`
+2. Import necessary utilities from your source files
+3. Define the story metadata and args
+4. Create render functions that generate DOM elements
+5. Export multiple story variants
+6. Push to GitHub - Actions handles the rest!
+
+## ðŸŽ­ Design Tokens
+
+Stories automatically include the app's CSS (`src/style.css`), so all components have access to:
+
+- Color variables (e.g., `var(--accent-primary)`)
+- Utility classes (e.g., `.section`, `.button-group`)
+- Animations and transitions
+
+## ðŸŒˆ Themes
+
+Storybook supports both light and dark themes:
+
+```typescript
+// In your story
+const container = document.createElement('div');
+container.classList.add('light-mode'); // or remove for dark
+```
+
+## ðŸ“ Best Practices
+
+1. **Keep stories simple**: Each story should demonstrate one state/variant
+2. **Use TypeScript**: Define proper types for your args
+3. **Add controls**: Make stories interactive with argTypes
+4. **Document behavior**: Use the autodocs tag
+5. **Test in Actions**: Always verify builds succeed in GitHub Actions
+
+## ðŸ”— Resources
+
+- [Storybook Documentation](https://storybook.js.org/docs)
+- [Storybook for HTML](https://storybook.js.org/docs/html/get-started/introduction)
+- [GitHub Actions Workflow](.github/workflows/storybook-test.yml)
+
+## ðŸŽ“ Learning Goals
+
+This "no local runs" approach teaches:
+
+- CI/CD workflows
+- GitHub Actions automation
+- Static site deployment
+- Component-driven development
+- Design systems thinking
+
+Remember: **Everything runs in the cloud!** ðŸš€
+
 
 ================================================================================
 FILE: tsconfig.json
@@ -4237,6 +5009,382 @@ export default defineConfig({
 });
 
 ================================================================================
+FILE: WORKFLOW_DIAGRAM.md
+================================================================================
+# Storybook Workflow Diagram
+
+## ðŸ”„ Complete Development Flow
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                         LOCAL MACHINE                            â”‚
+â”‚  (You only do these steps)                                      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â”‚
+                              â–¼
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚  Create/Edit    â”‚
+                    â”‚  Story Files    â”‚
+                    â”‚  (.stories.ts)  â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â”‚
+                              â–¼
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚   git add .     â”‚
+                    â”‚   git commit    â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â”‚
+                              â–¼
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚   git push      â”‚
+                    â”‚                 â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                              â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                             â”‚                              â”‚
+â”‚                      GITHUB ACTIONS                        â”‚
+â”‚                  (Everything happens here)                 â”‚
+â”‚                                                            â”‚
+â”‚                             â–¼                              â”‚
+â”‚                   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚                   â”‚  Checkout Code  â”‚                     â”‚
+â”‚                   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                     â”‚
+â”‚                             â”‚                              â”‚
+â”‚                             â–¼                              â”‚
+â”‚                   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚                   â”‚  Setup Node.js  â”‚                     â”‚
+â”‚                   â”‚   (version 22)  â”‚                     â”‚
+â”‚                   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                     â”‚
+â”‚                             â”‚                              â”‚
+â”‚                             â–¼                              â”‚
+â”‚                   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚                   â”‚ yarn install    â”‚                     â”‚
+â”‚                   â”‚ --frozen-lock   â”‚                     â”‚
+â”‚                   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                     â”‚
+â”‚                             â”‚                              â”‚
+â”‚                             â–¼                              â”‚
+â”‚                   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚                   â”‚     yarn        â”‚                     â”‚
+â”‚                   â”‚ build-storybook â”‚                     â”‚
+â”‚                   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                     â”‚
+â”‚                             â”‚                              â”‚
+â”‚                   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                  â”‚
+â”‚                   â”‚                   â”‚                  â”‚
+â”‚                   â–¼                   â–¼                  â”‚
+â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚
+â”‚         â”‚ Upload Artifact â”‚  â”‚  Verify Build   â”‚       â”‚
+â”‚         â”‚  (30 day keep)  â”‚  â”‚ (check files)   â”‚       â”‚
+â”‚         â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚
+â”‚                   â”‚                                      â”‚
+â”‚                   â”‚                                      â”‚
+â”‚         â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                          â”‚
+â”‚         â”‚                   â”‚                          â”‚
+â”‚         â–¼                   â–¼                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚
+â”‚  â”‚ PR Build â”‚      â”‚ Master Build  â”‚                 â”‚
+â”‚  â”‚  (only)  â”‚      â”‚    (only)     â”‚                 â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚
+â”‚         â”‚                   â”‚                          â”‚
+â”‚         â”‚                   â–¼                          â”‚
+â”‚         â”‚          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                â”‚
+â”‚         â”‚          â”‚  Deploy to      â”‚                â”‚
+â”‚         â”‚          â”‚  GitHub Pages   â”‚                â”‚
+â”‚         â”‚          â”‚  (gh-pages-     â”‚                â”‚
+â”‚
+
+
+================================================================================
+FILE: WORKFLOW_GUIDE.md
+================================================================================
+# GitHub Actions Workflow Guide
+
+## ðŸŽ¯ Overview
+
+This project runs ALL Node.js commands exclusively through GitHub Actions. Nothing runs locally!
+
+## ðŸ“‹ Quick Checklist
+
+Before pushing:
+- [ ] Created/edited `.stories.ts` files
+- [ ] Verified TypeScript types are correct
+- [ ] Committed all files
+- [ ] Ready to let GitHub Actions do the work!
+
+## ðŸ”„ Standard Workflow
+
+### 1. Create a Feature Branch
+
+```bash
+git checkout -b feature/add-storybook-component
+```
+
+### 2. Add Your Stories
+
+Create a new story file:
+
+```bash
+# Just create the file - no commands to run!
+touch src/stories/NewComponent.stories.ts
+```
+
+### 3. Commit Your Changes
+
+```bash
+git add src/stories/NewComponent.stories.ts
+git commit -m "feat: add NewComponent stories"
+```
+
+### 4. Push to GitHub
+
+```bash
+git push origin feature/add-storybook-component
+```
+
+**ðŸŽ‰ GitHub Actions takes over here!**
+
+### 5. Monitor the Build
+
+1. Go to your repository on GitHub
+2. Click the **Actions** tab
+3. Watch the **"Storybook Build & Deploy"** workflow run
+4. Wait for the green checkmark âœ…
+
+### 6. Review the Artifacts
+
+Once the build completes:
+- Click on the workflow run
+- Scroll to **Artifacts** section
+- Download **storybook-build.zip**
+- Extract and open `index.html` locally to preview
+
+### 7. Open a Pull Request
+
+```bash
+# On GitHub web interface:
+# 1. Click "Compare & pull request"
+# 2. Add description
+# 3. Submit PR
+```
+
+The PR will show:
+- âœ… Build status
+- ðŸ“¦ Available artifacts
+- ðŸ” Build logs
+
+### 8. Merge to Master
+
+Once approved:
+1. Merge the PR on GitHub
+2. GitHub Actions automatically:
+   - Builds Storybook
+   - Deploys to GitHub Pages
+   - Makes it live!
+
+## ðŸŽ¬ What Runs in GitHub Actions
+
+### On Every Push/PR
+
+```yaml
+jobs:
+  build-storybook:
+    steps:
+      - Install dependencies (yarn install)
+      - Build Storybook (yarn build-storybook)
+      - Upload artifacts
+  
+  test-storybook:
+    steps:
+      - Verify build succeeded
+      - Check for index.html
+```
+
+### On Master Branch Only
+
+```yaml
+deploy:
+  steps:
+    - Deploy to GitHub Pages
+    - Update live Storybook site
+```
+
+## ðŸ“Š Viewing Build Results
+
+### Option 1: GitHub Artifacts
+
+1. Actions tab â†’ Latest workflow run
+2. Scroll to Artifacts section
+3. Download `storybook-build`
+4. Extract and open in browser
+
+### Option 2: Live Deployment (Master only)
+
+Visit:
+```
+https://[username].github.io/[repo]/storybook/
+```
+
+### Option 3: Build Logs
+
+Check the logs if something fails:
+1. Actions tab â†’ Failed workflow
+2. Click the red X
+3. Read the error output
+
+## ðŸ› Troubleshooting
+
+### Build Fails
+
+**Error: Module not found**
+```
+âœ— Check package.json dependencies
+âœ— Verify import paths in stories
+âœ— Push updated package.json
+```
+
+**Error: TypeScript errors**
+```
+âœ— Check your .stories.ts files
+âœ— Fix type errors locally
+âœ— Push corrected code
+```
+
+**Error: Storybook config invalid**
+```
+âœ— Check .storybook/main.ts
+âœ— Check .storybook/preview.ts
+âœ— Fix syntax errors
+âœ— Push corrections
+```
+
+### Build Succeeds but Storybook Broken
+
+**Empty Storybook**
+```
+âœ— Check story file naming (must end in .stories.ts)
+âœ— Verify stories are exported
+âœ— Check title/category in meta
+```
+
+**Components Don't Render**
+```
+âœ— Check render function returns DOM element
+âœ— Verify CSS is imported in preview.ts
+âœ— Check browser console in downloaded artifact
+```
+
+## ðŸŽ“ Commands You DON'T Run Locally
+
+These all happen in GitHub Actions:
+
+```bash
+# âŒ DON'T run these locally:
+yarn install
+yarn storybook
+yarn build-storybook
+yarn type-check
+yarn lint
+yarn test
+
+# âœ… Only do these:
+git add .
+git commit -m "message"
+git push origin branch-name
+```
+
+## ðŸ“ Commit Message Conventions
+
+Use semantic commit messages:
+
+```bash
+feat: add new component story
+fix: correct button story props
+docs: update storybook readme
+refactor: reorganize story structure
+style: format story files
+test: add interaction tests to stories
+```
+
+## ðŸš€ Advanced: Multiple Story Files
+
+Adding several stories at once:
+
+```bash
+# Create all your story files
+touch src/stories/Component1.stories.ts
+touch src/stories/Component2.stories.ts
+touch src/stories/Component3.stories.ts
+
+# Edit them all
+# Then commit together
+git add src/stories/*.stories.ts
+git commit -m "feat: add component stories for buttons, inputs, and cards"
+git push origin feature/multiple-stories
+
+# GitHub Actions builds them all at once!
+```
+
+## ðŸŽ¯ Pro Tips
+
+1. **Small commits**: Push frequently so builds finish faster
+2. **Descriptive names**: Use clear file names for stories
+3. **Watch the logs**: Learn from build output
+4. **Test artifacts**: Download and check before merging
+5. **Keep simple**: One concern per story
+
+## ðŸ”„ Typical Development Loop
+
+```
+1. Create feature branch
+   â†“
+2. Add/edit story files
+   â†“
+3. Commit changes
+   â†“
+4. Push to GitHub
+   â†“
+5. GitHub Actions builds
+   â†“
+6. Download artifact to preview
+   â†“
+7. If good â†’ Merge to master
+   If issues â†’ Fix and push again
+   â†“
+8. Master auto-deploys to Pages
+   â†“
+9. View live Storybook!
+```
+
+## ðŸ“… Timeline Expectations
+
+- **Build time**: 2-5 minutes per push
+- **Deploy time**: 1-2 minutes after master merge
+- **Artifact retention**: 30 days
+
+## ðŸŽ‰ Success Checklist
+
+Your workflow is successful when:
+- âœ… GitHub Actions shows green checkmarks
+- âœ… Artifact downloads and opens properly
+- âœ… All stories render correctly
+- âœ… Controls work as expected
+- âœ… No console errors
+- âœ… Live site updates (on master)
+
+## ðŸ†˜ Getting Help
+
+If stuck:
+1. Check the Actions log output
+2. Review this guide
+3. Compare with working story examples
+4. Check Storybook documentation
+5. Look at the last successful build
+
+---
+
+**Remember**: This is a learning sandbox. The goal is to understand CI/CD workflows, not to run everything locally. Embrace the cloud! â˜ï¸
+
+
+================================================================================
 FILE: .github\workflows\coverage-comment.yml
 ================================================================================
 name: Coverage Comment
@@ -4288,13 +5436,14 @@ jobs:
 ================================================================================
 FILE: .github\workflows\storybook-test.yml
 ================================================================================
-name: Storybook Test Build
+name: Storybook Build & Deploy
 
 on:
   push:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   build-storybook:
@@ -4307,44 +5456,67 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22'
-    
-    - name: Delete yarn.lock to force fresh resolution
-      run: rm -f yarn.lock
+        node-version: '22.x'
+        cache: 'yarn'
     
     - name: Install dependencies
-      run: |
-        echo "Installing dependencies..."
-        yarn install
-        echo "Dependencies installed successfully!"
+      run: yarn install --frozen-lockfile
     
     - name: Build Storybook
-      run: |
-        echo "Building Storybook..."
-        yarn build-storybook
-        echo "Storybook build complete!"
-    
-    - name: Verify Storybook build
-      run: |
-        echo "Verifying Storybook output..."
-        ls -la storybook-static/
-        echo "Files in storybook-static:"
-        find storybook-static -type f
-        echo "Checking for index.html..."
-        test -f storybook-static/index.html && echo "âœ… index.html found!" || echo "âŒ index.html missing!"
+      run: yarn build-storybook
     
     - name: Upload Storybook artifact
       uses: actions/upload-artifact@v4
       with:
         name: storybook-build
         path: storybook-static/
-        retention-days: 7
+        retention-days: 30
+    
+    - name: Deploy to GitHub Pages (Storybook)
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./storybook-static
+        publish_branch: gh-pages-storybook
+        destination_dir: storybook
+
+  test-storybook:
+    runs-on: ubuntu-latest
+    needs: build-storybook
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+    
+    - name: Download Storybook artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: storybook-build
+        path: storybook-static/
+    
+    - name: Verify Storybook build
+      run: |
+        echo "Checking Storybook output..."
+        ls -la storybook-static/
+        test -f storybook-static/index.html && echo "âœ… Storybook built successfully!" || exit 1
 
 
 ================================================================================
-FILE: .storybook\main.js
+FILE: .storybook\main.ts
 ================================================================================
-module.exports = {
+import type { StorybookConfig } from '@storybook/html-vite';
+
+const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -4358,7 +5530,12 @@ module.exports = {
   docs: {
     autodocs: 'tag',
   },
+  core: {
+    disableTelemetry: true,
+  },
 };
+
+export default config;
 
 
 ================================================================================
@@ -5745,6 +6922,368 @@ export const Primary = () => {
     <p>This is a sample story for vanilla TypeScript!</p>
   `;
   return container;
+};
+
+
+================================================================================
+FILE: src\stories\Display.stories.ts
+================================================================================
+import type { Meta, StoryObj } from '@storybook/html';
+
+interface DisplayArgs {
+  text: string;
+  mode: 'manual' | 'question' | 'answer';
+}
+
+const meta: Meta<DisplayArgs> = {
+  title: 'Components/Display',
+  tags: ['autodocs'],
+  argTypes: {
+    text: { control: 'text' },
+    mode: { 
+      control: 'select',
+      options: ['manual', 'question', 'answer']
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<DisplayArgs>;
+
+const createDisplay = (args: DisplayArgs) => {
+  const container = document.createElement('div');
+  container.className = 'section';
+  container.style.maxWidth = '600px';
+  
+  const display = document.createElement('div');
+  display.className = 'quiz-display';
+  display.textContent = args.text;
+  
+  // Add appropriate styling based on mode
+  if (args.mode === 'question') {
+    display.style.color = 'var(--accent-primary)';
+  } else if (args.mode === 'answer') {
+    display.style.color = 'var(--success)';
+  }
+  
+  container.appendChild(display);
+  return container;
+};
+
+export const Manual: Story = {
+  args: {
+    text: '5 Ã— 10 = 50',
+    mode: 'manual',
+  },
+  render: createDisplay,
+};
+
+export const Question: Story = {
+  args: {
+    text: '7 Ã— 8',
+    mode: 'question',
+  },
+  render: createDisplay,
+};
+
+export const Answer: Story = {
+  args: {
+    text: '7 Ã— 8 = 56',
+    mode: 'answer',
+  },
+  render: createDisplay,
+};
+
+export const LargeNumbers: Story = {
+  args: {
+    text: '18 Ã— 17 = 306',
+    mode: 'answer',
+  },
+  render: createDisplay,
+};
+
+
+================================================================================
+FILE: src\stories\FullApp.stories.ts
+================================================================================
+import type { Meta, StoryObj } from '@storybook/html';
+import { Signal, ComputedSignal, effect } from '../signals';
+import { generateProblem } from '../utils';
+
+interface FullAppArgs {
+  theme: 'light' | 'dark';
+  initialMode: 'manual' | 'quiz';
+  difficulty: 1 | 2 | 3 | 4;
+}
+
+const meta: Meta<FullAppArgs> = {
+  title: 'App/FullApplication',
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'fullscreen',
+  },
+  argTypes: {
+    theme: { 
+      control: 'select',
+      options: ['light', 'dark']
+    },
+    initialMode: { 
+      control: 'select',
+      options: ['manual', 'quiz']
+    },
+    difficulty: { 
+      control: 'select',
+      options: [1, 2, 3, 4],
+      labels: {
+        1: 'Easy',
+        2: 'Medium',
+        3: 'Hard',
+        4: 'Expert'
+      }
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<FullAppArgs>;
+
+const createFullApp = (args: FullAppArgs) => {
+  // Create container
+  const container = document.createElement('div');
+  if (args.theme === 'light') {
+    container.classList.add('light-mode');
+  }
+  container.style.minHeight = '100vh';
+  container.style.display = 'flex';
+  container.style.justifyContent = 'center';
+  container.style.alignItems = 'center';
+  container.style.padding = '20px';
+  
+  // Create app container
+  const appContainer = document.createElement('div');
+  appContainer.className = 'container';
+  
+  // Title
+  const title = document.createElement('h1');
+  title.textContent = 'Reactive Math Quiz';
+  appContainer.appendChild(title);
+  
+  // Display section
+  const displaySection = document.createElement('div');
+  displaySection.className = 'section';
+  
+  const display = document.createElement('div');
+  display.className = 'quiz-display';
+  display.id = 'story-display';
+  display.textContent = args.initialMode === 'manual' ? '0 Ã— 10 = 0' : '7 Ã— 8';
+  
+  const progressContainer = document.createElement('div');
+  progressContainer.className = 'progress-container';
+  const progressBar = document.createElement('div');
+  progressBar.className = 'progress-bar';
+  progressBar.id = 'story-progress';
+  progressBar.style.width = args.initialMode === 'quiz' ? '50%' : '0%';
+  progressContainer.appendChild(progressBar);
+  
+  const timerDisplay = document.createElement('div');
+  timerDisplay.className = 'timer-display';
+  timerDisplay.id = 'story-timer';
+  timerDisplay.textContent = args.initialMode === 'manual' ? 'Ready' : 'Question: 3.5s';
+  
+  displaySection.appendChild(display);
+  displaySection.appendChild(progressContainer);
+  displaySection.appendChild(timerDisplay);
+  appContainer.appendChild(displaySection);
+  
+  // Settings section
+  const settingsSection = document.createElement('div');
+  settingsSection.className = 'section';
+  
+  const settingsTitle = document.createElement('h3');
+  settingsTitle.textContent = 'Quiz Settings';
+  settingsTitle.style.marginBottom = '15px';
+  settingsSection.appendChild(settingsTitle);
+  
+  const controls = document.createElement('div');
+  controls.className = 'controls';
+  
+  // Question time slider
+  const questionTimeGroup = document.createElement('div');
+  questionTimeGroup.className = 'slider-group';
+  questionTimeGroup.innerHTML = `
+    <label for="story-question-time">Question Time:</label>
+    <input type="range" id="story-question-time" min="1" max="30" value="5">
+    <span class="slider-value">5s</span>
+  `;
+  controls.appendChild(questionTimeGroup);
+  
+  // Answer time slider
+  const answerTimeGroup = document.createElement('div');
+  answerTimeGroup.className = 'slider-group';
+  answerTimeGroup.innerHTML = `
+    <label for="story-answer-time">Answer Time:</label>
+    <input type="range" id="story-answer-time" min="1" max="30" value="3">
+    <span class="slider-value">3s</span>
+  `;
+  controls.appendChild(answerTimeGroup);
+  
+  // Difficulty slider
+  const difficultyNames = ['', 'Easy', 'Medium', 'Hard', 'Expert'];
+  const difficultyGroup = document.createElement('div');
+  difficultyGroup.className = 'slider-group';
+  difficultyGroup.innerHTML = `
+    <label for="story-difficulty">Difficulty:</label>
+    <input type="range" id="story-difficulty" min="1" max="4" step="1" value="${args.difficulty}">
+    <span class="slider-value">${difficultyNames[args.difficulty]}</span>
+  `;
+  controls.appendChild(difficultyGroup);
+  
+  // Quiz button
+  const quizButton = document.createElement('button');
+  quizButton.textContent = args.initialMode === 'quiz' ? 'Stop Quiz' : 'Start Quiz';
+  quizButton.id = 'story-quiz-button';
+  controls.appendChild(quizButton);
+  
+  settingsSection.appendChild(controls);
+  appContainer.appendChild(settingsSection);
+  
+  // Manual mode section
+  const manualSection = document.createElement('div');
+  manualSection.className = 'section';
+  
+  const manualTitle = document.createElement('h3');
+  manualTitle.textContent = 'Manual Mode';
+  manualTitle.style.marginBottom = '15px';
+  manualSection.appendChild(manualTitle);
+  
+  const buttonGroup = document.createElement('div');
+  buttonGroup.className = 'button-group';
+  
+  const incrementBtn = document.createElement('button');
+  incrementBtn.textContent = 'Increment';
+  incrementBtn.id = 'story-increment';
+  incrementBtn.disabled = args.initialMode === 'quiz';
+  buttonGroup.appendChild(incrementBtn);
+  
+  const resetBtn = document.createElement('button');
+  resetBtn.textContent = 'Reset';
+  resetBtn.id = 'story-reset';
+  resetBtn.disabled = args.initialMode === 'quiz';
+  buttonGroup.appendChild(resetBtn);
+  
+  manualSection.appendChild(buttonGroup);
+  appContainer.appendChild(manualSection);
+  
+  // Status section
+  const statusSection = document.createElement('div');
+  statusSection.className = 'status';
+  statusSection.innerHTML = `
+    <div class="status-item">
+      <span>Mode:</span>
+      <span class="status-value" id="story-mode">${args.initialMode === 'quiz' ? 'Quiz' : 'Manual'}</span>
+    </div>
+    <div class="status-item">
+      <span>Quiz State:</span>
+      <span class="status-value" id="story-state">${args.initialMode === 'quiz' ? 'Running' : 'Stopped'}</span>
+    </div>
+    <div class="status-item">
+      <span>Last Update:</span>
+      <span class="status-value" id="story-update">${new Date().toLocaleTimeString()}</span>
+    </div>
+  `;
+  appContainer.appendChild(statusSection);
+  
+  container.appendChild(appContainer);
+  
+  // Add interactivity with signals
+  const counter = new Signal(0);
+  const seed = new Signal(10);
+  const isQuizActive = new Signal(args.initialMode === 'quiz');
+  
+  const displayText = new ComputedSignal(() => {
+    if (isQuizActive.get()) {
+      const problem = generateProblem(args.difficulty);
+      return `${problem.a} Ã— ${problem.b}`;
+    }
+    return `${counter.get()} Ã— ${seed.get()} = ${counter.get() * seed.get()}`;
+  });
+  
+  effect(() => {
+    display.textContent = displayText.get();
+  });
+  
+  // Event listeners
+  quizButton.addEventListener('click', () => {
+    const willBeActive = !isQuizActive.get();
+    isQuizActive.set(willBeActive);
+    quizButton.textContent = willBeActive ? 'Stop Quiz' : 'Start Quiz';
+    incrementBtn.disabled = willBeActive;
+    resetBtn.disabled = willBeActive;
+    
+    const modeEl = container.querySelector('#story-mode');
+    const stateEl = container.querySelector('#story-state');
+    if (modeEl) modeEl.textContent = willBeActive ? 'Quiz' : 'Manual';
+    if (stateEl) stateEl.textContent = willBeActive ? 'Running' : 'Stopped';
+  });
+  
+  incrementBtn.addEventListener('click', () => {
+    counter.set(counter.get() + 1);
+    const updateEl = container.querySelector('#story-update');
+    if (updateEl) updateEl.textContent = new Date().toLocaleTimeString();
+  });
+  
+  resetBtn.addEventListener('click', () => {
+    counter.set(0);
+    const updateEl = container.querySelector('#story-update');
+    if (updateEl) updateEl.textContent = new Date().toLocaleTimeString();
+  });
+  
+  return container;
+};
+
+export const DarkMode: Story = {
+  args: {
+    theme: 'dark',
+    initialMode: 'manual',
+    difficulty: 3,
+  },
+  render: createFullApp,
+};
+
+export const LightMode: Story = {
+  args: {
+    theme: 'light',
+    initialMode: 'manual',
+    difficulty: 3,
+  },
+  render: createFullApp,
+};
+
+export const QuizMode: Story = {
+  args: {
+    theme: 'dark',
+    initialMode: 'quiz',
+    difficulty: 3,
+  },
+  render: createFullApp,
+};
+
+export const EasyDifficulty: Story = {
+  args: {
+    theme: 'dark',
+    initialMode: 'manual',
+    difficulty: 1,
+  },
+  render: createFullApp,
+};
+
+export const ExpertDifficulty: Story = {
+  args: {
+    theme: 'dark',
+    initialMode: 'manual',
+    difficulty: 4,
+  },
+  render: createFullApp,
 };
 
 
