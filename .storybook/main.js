@@ -6,7 +6,7 @@ module.exports = {
     '@storybook/addon-interactions',
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/html-vite',
     options: {},
   },
   docs: {
