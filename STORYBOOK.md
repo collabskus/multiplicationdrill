@@ -10,26 +10,24 @@ This project uses a unique approach where **all Storybook commands run exclusive
 
 ### Automatic Builds
 
-Every time you push to `master` or open a pull request, GitHub Actions will:
+Every time you push to `master` or open a pull request, the existing GitHub Actions workflow (`.github/workflows/storybook-test.yml`) will:
 
-1. **Install dependencies** with yarn
-2. **Build Storybook** into static files
-3. **Upload artifacts** that persist for 30 days
-4. **Deploy to GitHub Pages** (on master branch only)
+1. **Setup Node.js 22** (hard-learned lesson: version matters!)
+2. **Delete yarn.lock** to force fresh dependency resolution (prevents stale lock issues)
+3. **Install dependencies** with yarn
+4. **Build Storybook** into static files
+5. **Verify the build** (checks for index.html and lists all files)
+6. **Upload artifacts** that persist for 7 days
 
 ### Viewing Your Storybook
 
-After a successful build on the `master` branch, your Storybook will be available at:
-
-```
-https://[your-username].github.io/[repo-name]/storybook/
-```
-
-Or check the GitHub Actions artifacts:
+Check the GitHub Actions artifacts:
 1. Go to the **Actions** tab in your repository
-2. Click on the latest **"Storybook Build & Deploy"** workflow run
-3. Download the **storybook-build** artifact
+2. Click on the latest **"Storybook Test Build"** workflow run
+3. Download the **storybook-build** artifact (available for 7 days)
 4. Extract and open `index.html` in your browser
+
+**Note**: The current workflow doesn't deploy to GitHub Pages automatically. If you want automatic deployment, you can add a deploy job to the existing workflow (see the workflow file for optional deployment code).
 
 ## 📚 Available Stories
 

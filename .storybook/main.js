@@ -1,6 +1,4 @@
-import type { StorybookConfig } from '@storybook/html-vite';
-
-const config: StorybookConfig = {
+module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -14,9 +12,4 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  core: {
-    disableTelemetry: true,
-  },
 };
-
-export default config;
